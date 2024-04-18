@@ -1,32 +1,27 @@
 <div class="navbar bg-base-100 hidden md:flex">
-    <div class="navbar-start">
-      <a class="btn btn-ghost text-xl"> 
-        urbanBus.
-      </a>
-    </div>
-    <div class="navbar-center hidden md:flex">
-      <ul class="menu menu-horizontal px-1">
-        <li><a href="/">Home</a></li>
-        <li>
-          <details>
-            <summary>Schedules</summary>
+  <div class="navbar-start">
+    <a class="btn btn-ghost text-xl"> 
+      urbanBus.
+    </a>
+  </div>
+  <div class="navbar-center hidden md:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li>
+        <a href="/home">Home</a>
+      </li>
+      <li>
+        <details>
+          <summary>Schedules</summary>
             <ul class="p-2">
               <li><a href="/schedules">Line</a></li>
               <li><a href="/schedules">General</a></li>
             </ul>
-          </details>
-        </li>
-        <li><a href="/ticket">Ticket</a></li>
+        </details>
+      </li>
+      <li><a href="/home">Ticket</a></li>
       </ul>
-    </div>
+  </div>
     <div class="navbar-end">
       <a class="btn" href="/profile">Profile</a>
     </div>
-  </div>
-
-  <style>
-    .logo_nav{
-      width: 200px;
-      height: 30px;
-    }
-  </style>
+</div>

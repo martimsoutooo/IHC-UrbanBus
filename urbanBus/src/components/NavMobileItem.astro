@@ -1,0 +1,21 @@
+---
+interface Props{
+    href: string;
+    icon: string;
+}
+
+const {href, icon} = Astro.props;
+---
+
+<button>
+    <a href={href}>
+        <i class={icon}></i>     
+    </a>
+</button>
+
+<style>
+    i{
+        color: white;
+        font-size: x-large;
+    }
+</style>
