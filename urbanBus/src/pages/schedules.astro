@@ -1,8 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro'
+import SchedulesMenu1 from '../components/SchedulesMenu1.astro';
+import SchedulesMenu2 from '../components/SchedulesMenu2.astro';
 ---
 
 <Layout title="urbanBus">
-	<Nav/> 
+	<div class="w-full h-screen">
+		<SchedulesMenu1 />
+		<SchedulesMenu2 />
+	</div>
 </Layout>
