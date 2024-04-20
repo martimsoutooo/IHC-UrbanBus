@@ -1,18 +1,25 @@
+---
+const lines = [
+    {name: 'L1', color: "[#00b8a1]/70", value: 1},
+    {name: 'L2', color: 'rose-500/50', value: 2},
+    {name: 'L3', color: 'amber-500/50', value: 3},
+    {name: 'L4', color: 'lime-500/50', value: 4},
+    {name: 'L5', color: 'emerald-500/50', value: 5},
+    {name: 'L6', color: 'cyan-500/50', value: 6},
+    {name: 'L7', color: 'violet-500/50', value: 7},
+    {name: 'L8', color: 'fuchsia-500/50', value: 8},
+    {name: 'L9', color: 'rose-500/50', value: 9},
+    {name: 'L10', color: 'amber-500/50', value: 10},
+    {name: 'L11', color: 'lime-500/50', value: 11},
+    {name: 'AZUL', color: 'blue-500/50', value: 12},
+    {name: 'VERDE', color: 'green-500/50', value: 13},
+]
+---
 <div class="flex flex-col border-opacity-50  mx-4 my-4">
     <div class="flex justify-center text-sm font-light  mb-2">choose a line</div>
     <div class="flex flex-wrap justify-center gap-3">
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L1</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L2</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L3</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L4</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L5</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L6</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L7</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L8</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L9</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L10</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">L11</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">Azul</button>
-        <button class="btn btn-circle bg-sky-500/50 w-12 h-12">Verde</button>
+        {(lines).map((line) => (
+            <button class={"btn btn-circle w-12 h-12 bg-" + line.color}>{line.name}</button>
+        ))}
     </div>
 </div>
