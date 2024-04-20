@@ -5,8 +5,14 @@ import SchedulesMenu2 from '../components/SchedulesMenu2.astro';
 ---
 
 <LayoutMobile title="urbanBus">
-	<div class="w-full h-screen">
+	<div class="flex flex-col">
+		<div class="flex-1">
 		<SchedulesMenu1 />
+	</div>
+		<!-- Put a separator at center -->
+		<div class="divider mb-0 vertical-center">OR</div>
+		<div class="flex-1">
 		<SchedulesMenu2 />
+		</div>
 	</div>
 </LayoutMobile>
