@@ -1,17 +1,87 @@
 ---
 import LayoutMobile from '../layouts/LayoutMobile.astro';
-import SchedulesMenu1 from '../components/SchedulesMenu1.astro';
-import SchedulesMenu2 from '../components/SchedulesMenu2.astro';
+
+const lines = [
+    {name: 'L1', color: "bg-[#00b8a1]/70", value: 1},
+    {name: 'L2', color: 'bg-rose-500/50', value: 2},
+    {name: 'L3', color: 'bg-amber-500/50', value: 3},
+    {name: 'L4', color: 'bg-lime-500/50', value: 4},
+    {name: 'L5', color: 'bg-emerald-500/50', value: 5},
+    {name: 'L6', color: 'bg-cyan-500/50', value: 6},
+    {name: 'L7', color: 'bg-violet-500/50', value: 7},
+    {name: 'L8', color: 'bg-fuchsia-500/50', value: 8},
+    {name: 'L9', color: 'bg-rose-500/50', value: 9},
+    {name: 'L10', color: 'bg-amber-500/50', value: 10},
+    {name: 'L11', color: 'bg-lime-500/50', value: 11},
+    {name: 'AZUL', color: 'bg-blue-500/50', value: 12},
+    {name: 'VERDE', color: 'bg-green-500/50', value: 13},
+]
 ---
 
 <LayoutMobile title="urbanBus">
 	<div class="flex flex-col h-full">
-		<div class="flex-1">
-			<SchedulesMenu1 />
+		<div id="menu1" class="flex-1 overflow-auto">
+			<div class="flex flex-col gap-6">
+				<label id="startStop" class="input input-bordered flex items-center gap-2">
+					<input type="text" class="grow" placeholder="Search for a stop" />
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /></svg>
+				</label>
+
+				<label id="lastStop" class="input input-bordered flex items-center gap-2">
+					<input type="text" class="grow" placeholder="Search your destiny" />
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /></svg>
+				</label>
+			</div>
 		</div>
 		<div class="divider mb-0 vertical-center">OR</div>
-		<div class="flex-1 overflow-auto">
-			<SchedulesMenu2 />
+		<div id="menu2" class="flex-1 overflow-auto">
+			<div class="flex flex-col border-opacity-50  mx-4 my-4">
+				<div class="flex justify-center text-sm font-light mb-2">choose a line</div>
+				<div class="flex flex-wrap justify-center gap-3">
+					{(lines).map((line) => (
+						<button class={"btn btn-circle w-12 h-12 " + line.color}>{line.name}</button>
+					))}
+				</div>
+			</div>
 		</div>
 	</div>
+	<style>
+		#menu1 {
+		    transition: flex-grow 0.3s ease;
+		}
+	</style>
+	<script>
+		const menu1 = document.getElementById('menu1');
+		const menu2 = document.getElementById('menu2');
+		const separator = document.querySelector('.divider');
+		const startStop = document.getElementById('startStop');
+		const lastStop = document.getElementById('lastStop');
+
+		startStop.querySelector('input').addEventListener('focus', () => {
+			// Animation to hide the menu2 by changing the height
+			menu1.style.flexGrow = 8;
+			menu2.style.flexGrow = 1;
+			// set timer to display none the menu2
+			setTimeout(() => {
+				menu2.style.display = 'none';
+				separator.style.display = 'none';
+			}, 300);
+		})
+		startStop.querySelector('input').addEventListener('blur', () => {
+			// Animation to show the menu2 by changing the height
+			menu2.style.display = 'flex';
+			separator.style.display = 'flex';
+			menu1.style.flexGrow = 1;
+			menu2.style.flexGrow = 1;
+		})
+
+		lastStop.querySelector('input').addEventListener('focus', () => {
+			startStop.style.display = 'none';
+		})
+		lastStop.querySelector('input').addEventListener('blur', () => {
+			startStop.style.display = 'flex';
+		})
+
+	</script>
 </LayoutMobile>
+
