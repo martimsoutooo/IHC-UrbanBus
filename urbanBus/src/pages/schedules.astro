@@ -38,23 +38,35 @@ const stops = [
 ---
 
 <LayoutMobile title="urbanBus">
-	<div class="flex flex-col h-full">
-		<div id="menu1" class="flex-1 overflow-auto">
-			<div class="flex flex-col gap-6">
-				<label id="startStop" class="input input-bordered flex items-center gap-2">
-					<input type="text" class="grow" placeholder="Search for a stop" />
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /></svg>
-				</label>
+	<div class="flex flex-col h-full py-6">
+		<div id="menu1" class="flex-1 h-1 transition-all">
+			<div class="flex flex-col h-full gap-6"> <!-- Gap between input and list -->
+				<div class="flex-0 flex flex-col gap-2"> <!-- Gap between the 2 inputs -->
+					<label id="startStop" class="input input-bordered flex items-center gap-2">
+						<input type="text" class="grow" placeholder="Search for a stop" />
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /></svg>
+					</label>
 
-				<label id="lastStop" class="input input-bordered flex items-center gap-2">
-					<input type="text" class="grow" placeholder="Search your destiny" />
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /></svg>
-				</label>
+					<label id="lastStop" class="input input-bordered flex items-center gap-2">
+						<input type="text" class="grow" placeholder="Search your destiny" />
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /></svg>
+					</label>
+				</div>
+				<div id="hintList" class="flex-1 overflow-scroll hidden">
+					<ul class="menu w-full p-0 [&_li>*]:rounded-none">
+						{(stops).map((stop) => (
+							<li>
+								<a>{stop.name}</a>
+							</li>
+							<div class="divider h-0.5 my-0"></div>
+						))}
+					</ul>
+				</div>
 			</div>
 		</div>
-		<div class="divider mb-0 vertical-center">OR</div>
-		<div id="menu2" class="flex-1 overflow-auto">
-			<div class="flex flex-col border-opacity-50  mx-4 my-4">
+		<div id="separator" class="divider mb-0 vertical-center">OR</div>
+		<div id="menu2" class="flex-1 overflow-auto transition-all">
+			<div class="flex flex-col border-opacity-50 mx-4 my-4">
 				<div class="flex justify-center text-sm font-light mb-2">choose a line</div>
 				<div class="flex flex-wrap justify-center gap-3">
 					{(lines).map((line) => (
@@ -66,18 +78,21 @@ const stops = [
 	</div>
 	<style>
 		#menu1 {
-		    transition: flex-grow 0.5s ease;
+		    transition: flex-grow 0.3s ease;
 		}
 		.divider {
-			transition: margin 0.5s ease;
+			transition: margin 0.3s ease;
+		}
+		#menu2 {
+			transition: height 0.3s ease;
 		}
 	</style>
 	<script>
 		const menu1 = document.getElementById('menu1');
 		const menu2 = document.getElementById('menu2');
-		const separator = document.querySelector('.divider');
-		const startStop = document.getElementById('startStop');
-		const lastStop = document.getElementById('lastStop');
+		const separator = document.getElementById('separator');
+		const inputs = document.querySelectorAll('input');
+		const hintList = document.getElementById('hintList');
 
 		let animationTimers = [];
 
@@ -101,35 +116,43 @@ const stops = [
 			animationTimers.push(setTimeout(() => {
 				menu2.style.display = 'none';
 				separator.style.display = 'none';
-			}, 500));
-		}
-
-		const showMenu2Transition = () => {
-			stopTimers();
-			menu2.style.display = 'flex';
-			separator.style.display = 'flex';
-			menu1.style.flexGrow = 1;
-			animationTimers(setTimeout(() => {
-				separator.style.marginLeft = '1rem';
-				separator.style.marginRight = '1rem';
 			}, 300));
 		}
 
-		startStop.querySelector('input').addEventListener('focus', () => {
-			hideMenu2Transition();
+		const showMenu2Transition = () => {
+			animationTimers.push(setTimeout(() => {
+				stopTimers();
+				menu2.style.display = 'flex';
+				separator.style.display = 'flex';
+				menu1.style.flexGrow = 1;
+				animationTimers.push(setTimeout(() => {
+					separator.style.marginLeft = '1rem';
+					separator.style.marginRight = '1rem';
+				}, 200));
+			}, 150));
+		}
 
-		})
-		startStop.querySelector('input').addEventListener('blur', () => {
-			showMenu2Transition();
-		})
+		const showHintList = () => {
+			setTimeout(() => {
+				hintList.classList.remove('hidden');
+			}, 150);
+		}
 
-		lastStop.querySelector('input').addEventListener('focus', () => {
-			startStop.style.display = 'none';
-		})
-		lastStop.querySelector('input').addEventListener('blur', () => {
-			startStop.style.display = 'flex';
-		})
+		const hideHintList = () => {
+			hintList.classList.add('hidden');
+		}
 
-	</script>
-</LayoutMobile>
+		inputs.forEach(input => {
+			input.addEventListener('focus', () => {
+				hideMenu2Transition();
+				showHintList();
+			});
+			input.addEventListener('blur', () => {
+				showMenu2Transition();
+				hideHintList();
+			});
+		});
+
+</script>
+	</LayoutMobile>
 
