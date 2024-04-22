@@ -1,8 +1,64 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro'
+import LayoutMobile from '../layouts/LayoutMobile.astro';
 ---
 
-<Layout title="urbanBus">
-	<Nav/> 
-</Layout>
+<LayoutMobile title="Profile">
+	<div class="flex mt-2 rounded-xl bg-neutral">
+		<div class="flex mx-auto">
+			<div class="avatar placeholder my-auto">
+				<div class="bg-gray-400 text-neutral-content rounded-full w-20 h-20">
+					<span class="text-3xl">JD</span>
+				</div>
+			</div>
+			<div>
+				<div class="my-7">
+					<h1 class="text-sm font-bold ml-6 text-white">John Doe</h1>
+					<h1 class="text-sm font-bold ml-6 text-white">johndoe@gmail.com</h1>
+					<h1 class="text-sm font-bold ml-6 text-gray-500">Cliente</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="btn btn-neutral rounded-xl mt-2 w-full" onclick="my_modal_3.showModal()"><i class="fa-solid fa-ticket"></i>Meu Passe</button>
+	<dialog id="my_modal_3" class="modal">
+		<div class="modal-box">
+			<form method="dialog">
+				<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+			</form>
+			<details tabindex="0" class="collapse w-full">
+				<summary class="collapse-title btn btn-neutral h-52 rounded-xl mt-4 w-full">
+					<div class="w-full h-full mx-2 my-2">
+						<div class="flex mt-5">
+							<div class="my-auto">
+								<div class="">
+									<h1 class="btn btn-ghost text-xl">urbanBus.</h1>
+								</div>
+							</div>
+							<div class="avatar placeholder absolute right-6 top-6">
+								<div class="bg-gray-400 text-neutral-content rounded-full w-16 h-16">
+									<span class="text-3xl">JD</span>
+								</div>
+							</div>
+						</div>
+						<div>
+							<h1 class="text-sm rounded-md bg-white font-bold text-neutral w-full mt-6 text-left mx-2 pl-2">John Marshall Saint Doe</h1>
+							<h1 class="text-sm rounded-md bg-white font-bold text-neutral w-full mt-2 text-left mx-2 pl-2">41249</h1>
+							<h1 class="text-sm rounded-md bg-white font-bold text-neutral w-full mt-2 text-left mx-2 pl-2">val 30/04</h1>
+						</div>
+					</div>
+				</summary>
+				<div class="collapse-content mx-2">
+					<img src="../public/qr.svg" class="h-36 w-36 mx-auto mt-4">
+				</div>
+			</details>
+			
+			
+		</div>
+	</dialog>
+	<div class="btn btn-neutral flex h-12 rounded-xl mt-2">
+		<div class="mx-auto flex">
+			<i class="fa-solid fa-arrow-right-from-bracket text-white my-auto"></i>
+			<h1 class="text-md font-bold text-white ml-2 my-auto">Terminar Sessão</h1>
+		</div>
+	</div>
+</LayoutMobile>
