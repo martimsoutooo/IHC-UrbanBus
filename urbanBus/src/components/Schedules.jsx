@@ -109,8 +109,8 @@ export default function Schedules() {
 		</div>
 		<div id="separator" className="divider mb-0 vertical-center">OR</div>
 		<div id="menu2" className="flex-1 overflow-auto transition-all">
-			<div className="flex flex-col border-opacity-50 mx-4 my-4">
-				<div className="flex justify-center text-sm font-light mb-2">choose a line</div>
+			<div className="flex flex-col border-opacity-50 mx-4 mb-4">
+				<div className="flex justify-center text-sm font-light mb-5">choose a line</div>
 				<div className="flex flex-wrap justify-center gap-3">
 					{(lines).map((line) => (
 						<button key={line.id} className={"btn btn-circle w-12 h-12 " + line.color}>{line.name}</button>
