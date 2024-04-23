@@ -156,7 +156,7 @@ export default function Schedules() {
 						<StopSearchHint search={searchTerm} onChange={handleSelection} onFocus={handleSelectionFocus} />
 					</div>
 					<div id="resultList" className="flex1 overflow-auto hidden">
-						<StopListResult firstStop={startStop} lastStop={lastStop} onChange={setLastStop} onFocus={handleFocus} />
+						<StopListResult firstStop={startStop} lastStop={lastStop} />
 					</div>
 				</div>
 			</div>
