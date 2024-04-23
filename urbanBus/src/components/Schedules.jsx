@@ -84,9 +84,12 @@ export default function Schedules() {
 		showHintList(e.target);
 		if (e.target.parentElement.id === 'lastStop') {
 			setIsLastStopTheLastFocus(true);
+			setLastStop("");
 		} else {
 			setIsLastStopTheLastFocus(false);
+			setStartStop("");
 		}
+		setSearchTerm("");
 	}
 
 	const handleBlur = (e) => {
