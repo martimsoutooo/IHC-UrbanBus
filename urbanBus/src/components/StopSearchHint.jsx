@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 
-export default function StopSearchHint({ search }) {
-	const [searchTerm, setSearchTerm] = useState(search);
+export default function StopSearchHint(props) {
+	const [searchTerm, setSearchTerm] = useState(props.search);
 
 	React.useEffect(() => {
-   		setSearchTerm(search)
- 	}, [search])
+   		setSearchTerm(props.search)
+ 	}, [props.search])
 
 	const stops = [
 		{name: 'Plaza de la Revolución', id: 1},
@@ -24,7 +24,18 @@ export default function StopSearchHint({ search }) {
 		{name: 'Calle 330', id: 13},
 		{name: 'Calle 350', id: 14},
 		{name: 'Calle 400', id: 15},
-	]
+		]
+
+	const handleClick = (stop) => {
+		// emit event to parent
+		console.log("Handle " + stop);
+		props.onChange(stop);
+	}
+
+	const handleFocus = (stop) => {
+		console.log("Focus " + stop)
+		props.onFocus(stop)
+	}
 
 	return (
 		<ul className="menu w-full p-0 [&_li>*]:rounded-none">
@@ -32,14 +43,14 @@ export default function StopSearchHint({ search }) {
 			if (stop.name.toLowerCase().includes(searchTerm.toLowerCase())) {
 				return (
 					<div key={stop.id}>
-					<li>
-					<a>{stop.name}</a>
-					</li>
-					<div className="divider h-0.5 my-0"></div>
+						<li onClick={() => {handleClick(stop.name)}} onMouseDown={() => {handleFocus(stop.name)}}>
+							<a>{stop.name}</a>
+						</li>
+						<div className="divider h-0.5 my-0"></div>
 					</div>
-				);
-			}
-		})}
+					);
+				}
+			})}
 		</ul>
-	)
+		)
 }

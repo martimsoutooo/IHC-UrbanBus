@@ -5,6 +5,9 @@ import '../styles/schedules.css';
 
 export default function Schedules() {
 	const [searchTerm, setSearchTerm] = useState('');
+	const [startStop, setStartStop] = useState('');
+	const [lastStop, setLastStop] = useState('');
+	const [isLastStopTheLastFocus, setIsLastStopTheLastFocus] = useState(false);
 
 	let lines = [
 	    {name: 'L1', color: "bg-[#00b8a1]/70", id: 1},
@@ -62,7 +65,9 @@ export default function Schedules() {
 		}, 150));
 	}
 
-	const showHintList = () => {
+	const showHintList = (target) => {
+
+		setSearchTerm(target.value);
 		setTimeout(() => {
 			hintList.classList.remove('hidden');
 		}, 150);
@@ -74,50 +79,82 @@ export default function Schedules() {
 
 	const handleFocus = (e) => {
 		hideMenu2Transition();
-		showHintList();
+		showHintList(e.target);
+		if (e.target.parentElement.id === 'lastStop') {
+			setIsLastStopTheLastFocus(true);
+		} else {
+			setIsLastStopTheLastFocus(false);
+		}
 	}
 
 	const handleBlur = (e) => {
-		showMenu2Transition();
-		hideHintList();
+		if (startStop == "" && lastStop == "") {
+			showMenu2Transition();
+		}
+		animationTimers.push(setTimeout(() => {
+				hideHintList();
+			}, 10));
 	}
 
 	const handleChange = (e) => {
 		console.log(e.target.value);
 		setSearchTerm(e.target.value);
+		if (e.target.parentElement.id === 'startStop') {
+			setStartStop(e.target.value);
+		} else if (e.target.parentElement.id === 'lastStop'){
+			setLastStop(e.target.value);
+		}
 	}
 
-	return (
-	<div className="flex flex-col h-full">
-		<div id="menu1" className="flex-1 h-1 transition-all">
-			<div className="flex flex-col h-full gap-6"> {/* Gap between input and list */}
-				<div className="flex-0 flex flex-col gap-2"> {/* Gap between the 2 inputs */}
-					<label id="startStop" className="input input-bordered flex items-center gap-2">
-						<input type="text" className="grow" onFocus={handleFocus} onBlur={handleBlur} onChange={handleChange} placeholder="Search for a stop" />
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
-					</label>
+	const handleSelection = (stop) => {
+		console.log(stop);
+		if (!isLastStopTheLastFocus) {
+			setStartStop(stop);
+		} else {
+			setLastStop(stop);
+		}
+		hideHintList();
+	}
 
-					<label id="lastStop" className="input input-bordered flex items-center gap-2">
-						<input type="text" className="grow" onFocus={handleFocus} onBlur={handleBlur} onChange={handleChange} placeholder="Search your destiny" />
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
-					</label>
-				</div>
-				<div id="hintList" className="flex-1 overflow-scroll hidden">
-					<StopSearchHint search={searchTerm} />
+	const handleSelectionFocus = (stop) => {
+		console.log("selection focus")
+		setTimeout(() => {
+			stopTimers();
+		}, 5);
+	}
+
+
+	return (
+		<div className="flex flex-col h-full">
+			<div id="menu1" className="flex-1 h-1 transition-all">
+				<div className="flex flex-col h-full gap-6"> {/* Gap between input and list */}
+					<div className="flex-0 flex flex-col gap-2"> {/* Gap between the 2 inputs */}
+						<label id="startStop" className="input input-bordered flex items-center gap-2">
+							<input type="text" className="grow" onFocus={handleFocus} onBlur={handleBlur} onChange={handleChange} placeholder="Search for a stop" value={startStop} />
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
+						</label>
+
+						<label id="lastStop" className="input input-bordered flex items-center gap-2">
+							<input type="text" className="grow" onFocus={handleFocus} onBlur={handleBlur} onChange={handleChange} placeholder="Search your destiny" value={lastStop} />
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
+						</label>
+					</div>
+					<div id="hintList" className="flex-1 overflow-scroll hidden">
+						<StopSearchHint search={searchTerm} onChange={handleSelection} onFocus={handleSelectionFocus} />
+					</div>
 				</div>
 			</div>
-		</div>
-		<div id="separator" className="divider mb-0 vertical-center">OR</div>
-		<div id="menu2" className="flex-1 overflow-auto transition-all">
-			<div className="flex flex-col border-opacity-50 mx-4 mb-4">
-				<div className="flex justify-center text-sm font-light mb-5">choose a line</div>
-				<div className="flex flex-wrap justify-center gap-3">
-					{(lines).map((line) => (
-						<button key={line.id} className={"btn btn-circle w-12 h-12 " + line.color}>{line.name}</button>
-					))}
+			<div id="separator" className="divider mb-0 vertical-center">OR</div>
+			<div id="menu2" className="flex-1 overflow-auto transition-all">
+				<div className="flex flex-col border-opacity-50 mx-4 mb-4">
+					<div className="flex justify-center text-sm font-light mb-5">choose a line</div>
+					<div className="flex flex-wrap justify-center gap-3">
+						{(lines).map((line) => (
+							<button key={line.id} className={"btn btn-circle w-12 h-12 " + line.color}>{line.name}</button>
+							))}
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	)
+		)
 }
