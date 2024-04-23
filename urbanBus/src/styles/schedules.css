@@ -1,0 +1,9 @@
+#menu1 {
+    transition: flex-grow 0.3s ease;
+}
+.divider {
+	transition: margin 0.3s ease;
+}
+#menu2 {
+	transition: height 0.3s ease;
+}
