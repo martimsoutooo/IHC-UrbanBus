@@ -5,11 +5,13 @@ import JourneyCard from './JourneyCard.jsx';
 export default function StopListResult(props) {
 	const [firstStop, setFirstStop] = useState(props.firstStop);
 	const [lastStop, setLastStop] = useState(props.lastStop);
+	const [line, setLine] = useState(props.line);
 
 	useEffect(() => {
 		setFirstStop(props.firstStop);
 		setLastStop(props.lastStop);
-	}, [props.firstStop, props.lastStop]);
+		setLine(props.line);
+	}, [props.firstStop, props.lastStop, props.line]);
 
 	const journeys = [
 		{line: 'L1', startTime: '06:00', endTime: '06:40'},
@@ -80,12 +82,7 @@ export default function StopListResult(props) {
 	return (
 		<div className="w-full p-0">
 			{(journeys).sort((a, b) => {
-				if (a.startTime < b.startTime) {
-					return -1;
-				}
-				if (a.startTime > b.startTime) {
-					return 1;
-				}
+				return a.startTime > b.startTime ? 1 : -1;
 			}).map((journey) => {
 				if (journey) {
 					return (
