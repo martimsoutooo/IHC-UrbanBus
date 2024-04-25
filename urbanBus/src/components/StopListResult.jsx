@@ -80,7 +80,7 @@ export default function StopListResult(props) {
 	}
 
 	return (
-		<div className="w-full p-0">
+		<ul className="w-full p-0">
 			{(journeys).sort((a, b) => {
 				return a.startTime > b.startTime ? 1 : -1;
 			}).map((journey) => {
@@ -89,9 +89,9 @@ export default function StopListResult(props) {
 						<li key={journey.line + journey.startTime} onClick={() => {handleClick(journey.line)}} onMouseDown={() => {handleFocus(journey.line)}}>
 							<JourneyCard line={journey.line} startTime={journey.startTime} endTime={journey.endTime} />
 						</li>
-						);
-					}
-				})}
-			</div>
-		);
+					);
+				}
+			})}
+		</ul>
+	);
 }
