@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useRef } from 'react';
 import StopSearchHint from './StopSearchHint.jsx';
 import StopListResult from './StopListResult.jsx';
+import LineTable from './LineTable.jsx';
 import '../styles/schedules.css';
 
 export default function Schedules() {
@@ -114,6 +115,14 @@ export default function Schedules() {
 		resultList.classList.add('hidden');
 	}
 
+	const showLineTable = () => {
+		lineTable.classList.remove('hidden');
+	}
+
+	const hideLineTable = () => {
+		lineTable.classList.add('hidden');
+	}
+
 	const handleChange = (e) => {
 		console.log(e.target.value);
 		setSearchTerm(e.target.value);
@@ -145,16 +154,18 @@ export default function Schedules() {
 		}, 5);
 	}
 
+
+
 	const lineSelection = (line) => {
 		setSelectedLine(line);
 		hideMenu2Transition(true);
 		hideStopInputs();
-		showResultList();
+		showLineTable();
 	}
 
 	return (
 		<div className="flex flex-col h-full">
-			<div id="menu1" className="flex-1 h-1 transition-all">
+			<div id="menu1" className="flex-1 transition-all h-1">
 				<div className="flex flex-col h-full gap-2"> {/* Gap between input and list */}
 					<div id="stopInputs" className="flex-0 flex flex-col gap-2"> {/* Gap between the 2 inputs */}
 						<label className="input input-bordered flex items-center gap-2">
@@ -171,7 +182,10 @@ export default function Schedules() {
 						<StopSearchHint search={searchTerm} onChange={handleSelection} onFocus={handleSelectionFocus} />
 					</div>
 					<div id="resultList" className="flex1 overflow-auto hidden">
-						<StopListResult line={selectedLine} firstStop={startStop} lastStop={lastStop} />
+						<StopListResult line={selectedLine} />
+					</div>
+					<div id="lineTable" className="flex-1 h-full hidden">
+						<LineTable line={selectedLine} />
 					</div>
 				</div>
 			</div>
