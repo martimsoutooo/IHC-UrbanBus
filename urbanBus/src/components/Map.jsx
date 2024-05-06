@@ -63,10 +63,23 @@ function Map() {
 			const stop = stops[i];
 			L.marker([stop.longitude, stop.latitude]).addTo(map).bindPopup(stop.name);
 		}
+            // Add a marker for the current location
+            const marker = L.marker([0, 0]).addTo(map);
+
+            // Try to locate the user's current position
+            map.locate({ setView: true, maxZoom: 16 });
+
+            // When the location is found, update the marker position
+            function onLocationFound(e) {
+                const { lat, lng } = e.latlng;
+			    marker.bindPopup("You are here").openPopup();
+            }
+
+            map.on('locationfound', onLocationFound);
 
 	}, []);
 
-	return <div id="map" class="h-svh"/>;
+	return <div id="map" className="h-svh"/>;
 }
 
 export default Map;
