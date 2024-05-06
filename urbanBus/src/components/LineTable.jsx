@@ -78,7 +78,7 @@ export default function LineTable(props) {
 				<option value="1">Sábados, domingos e feriados</option>
 			</select>
 			<div className="h-full overflow-auto pt-2">
-				<table className="table table-pin-rows">
+				<table className="table table-xs table-pin-rows">
 					<thead>
 						<tr>
 							{line[selectedDay].stops.map(stop => (<th>{stop}</th>))}
