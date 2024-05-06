@@ -16,9 +16,19 @@ export default function Timeline() {
 
             <div className="divider my-0"></div>
 
-            <div className='flex flex-row items-center justify-end gap-2 ml-4 mr-2 mb-0 mt-3'>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-6 h-6"><path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>
-                <p className='text-xl'>1h20m</p>
+            <div className='flex flex-row items-center justify-between gap-2 ml-4 mr-2 mb-6 mt-3'>
+                <div className='flex flex-row items-center gap-2'>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-6 h-6"><path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>
+                    <p className='text-xl'>1h20m</p>
+                </div>
+
+                <div className='flex flex-row items-center gap-2 badge-neutral p-1'>
+                    <div className='flex flex-row items-center gap-2'>
+                        <p className='text-xl'>12h40m</p>
+                        <p className='text-xl'>-</p>
+                        <p className='text-xl'>14h00m</p>
+                    </div>
+                </div>
             </div>
 
 
