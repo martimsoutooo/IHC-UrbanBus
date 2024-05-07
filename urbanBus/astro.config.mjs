@@ -10,14 +10,14 @@ export default defineConfig({
 		react(),
 		AstroPWA({
 			mode: "development",
-			base: "/",
-			scope: "/",
+			base: "/app",
+			scope: "/app",
 			includeAssets: ["favicon.svg"],
       		registerType: "autoUpdate",
 			manifest: {
-				name: "UrbanBus",
-				short_name: "UrbanBus",
-				description: "UrbanBus is a public transportation app",
+				name: "urbanBus",
+				short_name: "urbanBus",
+				description: "urbanBus is a public transportation app",
 				theme_color: "#ffffff",
 				display: "fullscreen",
 				icons: [
