@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev --host",
-    "start": "astro dev --host",
+    "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -16,11 +16,13 @@
     "@types/react-dom": "^18.2.25",
     "astro": "^4.6.1",
     "daisyui": "^4.10.1",
+    "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwindcss": "^3.4.3"
   },
   "devDependencies": {
     "@vite-pwa/astro": "^0.3.1"
+    "@types/leaflet": "^1.9.12"
   }
 }
