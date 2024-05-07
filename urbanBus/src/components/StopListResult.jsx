@@ -87,7 +87,7 @@ export default function StopListResult(props) {
 				if (journey.line === line) {
 					return (
 						<li key={journey.line + journey.startTime} onClick={() => {handleClick(journey.line)}} onMouseDown={() => {handleFocus(journey.line)}}>
-							<a href='/tripTimeline'>
+							<a href='/app/tripTimeline'>
 								<JourneyCard line={journey.line} startTime={journey.startTime} endTime={journey.endTime} />
 							</a>
 						</li>
