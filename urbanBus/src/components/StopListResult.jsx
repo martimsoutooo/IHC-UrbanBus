@@ -84,7 +84,7 @@ export default function StopListResult(props) {
 			{(journeys).sort((a, b) => {
 				return a.startTime > b.startTime ? 1 : -1;
 			}).map((journey) => {
-				if (journey) {
+				if (journey.line === line) {
 					return (
 						<li key={journey.line + journey.startTime} onClick={() => {handleClick(journey.line)}} onMouseDown={() => {handleFocus(journey.line)}}>
 							<a href='/tripTimeline'>
