@@ -1,0 +1,16 @@
+---
+import LayoutMobile from "../layouts/LayoutMobile.astro";
+---
+
+<LayoutMobile>
+    <select class="select select-bordered w-full">
+        <option disabled selected>Pick your payment method</option>
+        <option>MbWay</option>
+        <option>Multibanco</option>
+        <option>PayPal</option>
+    </select>
+
+    <div class="btn btn-neutral w-full mt-2" onclick="verify()">
+        Confirm
+    </div>
+</LayoutMobile>
