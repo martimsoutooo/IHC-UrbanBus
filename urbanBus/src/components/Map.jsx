@@ -54,7 +54,7 @@ function Map() {
 		// Add a tile layer to the map
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 			maxZoom: 19,
-			minZoom: 10,
+			minZoom: 2,
 			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
@@ -63,8 +63,6 @@ function Map() {
 			const stop = stops[i];
 			L.marker([stop.longitude, stop.latitude]).addTo(map).bindPopup(stop.name);
 		}
-            // Add a marker for the current location
-            const marker = L.marker([0, 0]).addTo(map);
 
             // Try to locate the user's current position
             map.locate({ setView: true, maxZoom: 16 });
@@ -72,10 +70,30 @@ function Map() {
             // When the location is found, update the marker position
             function onLocationFound(e) {
                 const { lat, lng } = e.latlng;
-			    marker.bindPopup("You are here").openPopup();
-            }
+				// Add a marker for the current location
+				const marker = L.circleMarker([lat, lng], {
+						radius: 10,
+						color: 'blue',
+						fillColor: '#3388ff',
+						fillOpacity: 0.5
+					}).addTo(map);
+				marker.bindPopup("You are here").openPopup();
+			}
 
-            map.on('locationfound', onLocationFound);
+		map.on('locationfound', onLocationFound);
+
+		const handleOrientationChange = (event) => {
+            const alpha = event.alpha; // Rotation around the z-axis (in degrees)
+            const beta = event.beta;   // Rotation around the x-axis (in degrees)
+            const gamma = event.gamma; // Rotation around the y-axis (in degrees)
+
+            // Do something with the orientation data
+            console.log('Alpha (Z):', alpha);
+            console.log('Beta (X):', beta);
+            console.log('Gamma (Y):', gamma);
+        };
+
+        window.addEventListener('deviceorientation', handleOrientationChange);
 
 	}, []);
 
