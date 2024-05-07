@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
 import tailwind from "@astrojs/tailwind";
 import react from "@astrojs/react";
 import AstroPWA from "@vite-pwa/astro";
@@ -12,8 +12,8 @@ export default defineConfig({
 			mode: "development",
 			base: "/",
 			scope: "/",
-			includeAssets: ['favicon.svg'],
-      		registerType: 'autoUpdate',
+			includeAssets: ["favicon.svg"],
+      		registerType: "autoUpdate",
 			manifest: {
 				name: "UrbanBus",
 				short_name: "UrbanBus",
@@ -40,8 +40,8 @@ export default defineConfig({
 					]
 				},
 			workbox: {
-				navigateFallback: '/',
-				globPatterns: ['**/*.{css,js,html,svg,png,ico,txt}'],
+				navigateFallback: "/",
+				globPatterns: ["**/*.{css,js,html,svg,png,ico,txt}"],
 				},
 			devOptions: {
 				enabled: true,
