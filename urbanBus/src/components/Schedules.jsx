@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useRef } from 'react';
 import StopSearchHint from './StopSearchHint.jsx';
 import StopListResult from './StopListResult.jsx';
+import LineTable from './LineTable.jsx';
 import '../styles/schedules.css';
 
 export default function Schedules() {
@@ -9,6 +10,7 @@ export default function Schedules() {
 	const [startStop, setStartStop] = useState('');
 	const [lastStop, setLastStop] = useState('');
 	const [isLastStopTheLastFocus, setIsLastStopTheLastFocus] = useState(false);
+	const [selectedLine, setSelectedLine] = useState('');
 
 	let lines = [
 	    {name: 'L1', color: "bg-[#00b8a1]/70", id: 1},
@@ -37,12 +39,12 @@ export default function Schedules() {
 	}
 
 
-	const hideMenu2Transition = () => {
+	const hideMenu2Transition = (fast = false) => {
 		stopTimers();
 		// Animation to hide the menu2 by changing the height
 		animationTimers.push(setTimeout(() => {
 			menu1.style.flexGrow = 10;
-		}, 120));
+		}, fast ? 20 : 120));
 		separator.style.marginLeft = '8rem';
 		separator.style.marginRight = '8rem';
 		// set timer to display none the menu2
@@ -78,15 +80,22 @@ export default function Schedules() {
 		hintList.classList.add('hidden');
 	}
 
+	const hideStopInputs = () => {
+		stopInputs.classList.add('hidden');
+	}
+
 	const handleFocus = (e) => {
 		hideMenu2Transition();
 		hideResultList();
 		showHintList(e.target);
 		if (e.target.parentElement.id === 'lastStop') {
 			setIsLastStopTheLastFocus(true);
+			setLastStop("");
 		} else {
 			setIsLastStopTheLastFocus(false);
+			setStartStop("");
 		}
+		setSearchTerm("");
 	}
 
 	const handleBlur = (e) => {
@@ -104,6 +113,14 @@ export default function Schedules() {
 
 	const hideResultList = () => {
 		resultList.classList.add('hidden');
+	}
+
+	const showLineTable = () => {
+		lineTable.classList.remove('hidden');
+	}
+
+	const hideLineTable = () => {
+		lineTable.classList.add('hidden');
 	}
 
 	const handleChange = (e) => {
@@ -134,15 +151,24 @@ export default function Schedules() {
 		console.log("selection focus")
 		setTimeout(() => {
 			stopTimers();
-			}, 5);
-		}
+		}, 5);
+	}
+
+
+
+	const lineSelection = (line) => {
+		setSelectedLine(line);
+		hideMenu2Transition(true);
+		hideStopInputs();
+		showLineTable();
+	}
 
 	return (
 		<div className="flex flex-col h-full">
-			<div id="menu1" className="flex-1 h-1 transition-all">
-				<div className="flex flex-col h-full gap-6"> {/* Gap between input and list */}
-					<div className="flex-0 flex flex-col gap-2"> {/* Gap between the 2 inputs */}
-						<label id="startStop" className="input input-bordered flex items-center gap-2">
+			<div id="menu1" className="flex-1 transition-all h-1">
+				<div className="flex flex-col h-full gap-2"> {/* Gap between input and list */}
+					<div id="stopInputs" className="flex-0 flex flex-col gap-2"> {/* Gap between the 2 inputs */}
+						<label id="firstStop" className="input input-bordered flex items-center gap-2">
 							<input type="text" className="grow" onFocus={handleFocus} onBlur={handleBlur} onChange={handleChange} placeholder="Search for a stop" value={startStop} />
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="w-4 h-4 opacity-70"><path fillRule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clipRule="evenodd" /></svg>
 						</label>
@@ -156,7 +182,10 @@ export default function Schedules() {
 						<StopSearchHint search={searchTerm} onChange={handleSelection} onFocus={handleSelectionFocus} />
 					</div>
 					<div id="resultList" className="flex1 overflow-auto hidden">
-						<StopListResult firstStop={startStop} lastStop={lastStop} />
+						<StopListResult line={selectedLine} />
+					</div>
+					<div id="lineTable" className="flex-1 h-full hidden">
+						<LineTable line={selectedLine} />
 					</div>
 				</div>
 			</div>
@@ -166,11 +195,11 @@ export default function Schedules() {
 					<div className="flex justify-center text-sm font-light mb-5">choose a line</div>
 					<div className="flex flex-wrap justify-center gap-3">
 						{(lines).map((line) => (
-							<button key={line.id} className={"btn btn-circle w-12 h-12 " + line.color}>{line.name}</button>
-							))}
-						</div>
+							<button key={line.id} onClick={() => {lineSelection(line.name)}} className={"btn btn-circle w-14 h-14 " + line.color}>{line.name}</button>
+						))}
 					</div>
 				</div>
 			</div>
-		)
+		</div>
+	)
 }
