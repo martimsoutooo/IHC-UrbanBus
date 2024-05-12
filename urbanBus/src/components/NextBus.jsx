@@ -6,6 +6,17 @@ import StopListResult from './StopListResult.jsx';
 export default function NextBus(props) {
 	const [searchTerm, setSearchTerm] = useState('');
 
+	useEffect(() => {
+		// get url search parameter
+		const urlParams = new URLSearchParams(window.location.search);
+		const search = urlParams.get('search');
+		console.log('search:', search)
+		if (search) {
+			setSearchTerm(search);
+			resultList.classList.remove('hidden');
+		}
+	}, []);
+
 	let timers = [];
 	const stopTimers = () => {
 		timers.forEach(timer => {
@@ -15,11 +26,6 @@ export default function NextBus(props) {
 		timers = [];
 	}
 	
-	useEffect(() => {
-		setSearchTerm(props.search);
-	}, [props.search]);
-
-
 	const handleFocus = (e) => {
 		setSearchTerm(e.target.value);
 		resultList.classList.add('hidden');

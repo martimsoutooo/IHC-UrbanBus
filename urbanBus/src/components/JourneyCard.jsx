@@ -19,14 +19,14 @@ export default function JourneyCard(props) {
 	}, [props.line, props.startTime, props.delay, props.endTime, props.departure, props.destination]);
 
 	return (
-		<div className="card bg-white shadow-md rounded-lg cursor-pointer p-4 m-4">
+		<div className="card bg-white shadow-md rounded-lg cursor-pointer p-4 my-4">
 			<div className="flex justify-between items-center">
 				<div className="flex items-center">
 					<div className="flex items-center justify-center bg-[#00b8a1] text-white w-12 h-12 rounded-full">
 						{line}
 					</div>
 					<div className="ml-4">
-						<p className="text-lg font-semibold text-gray-800">{startTime} - {endTime}  {delay && <span class="badge badge-default text-xs">+{delay} min</span>}</p>
+						<p className="text-lg font-semibold text-gray-800">{startTime} - {endTime}  {delay && <span className="badge badge-default text-xs">+{delay} min</span>}</p>
 						<p className="text-xs text-gray-600">{departure}</p>
 						<p className="text-xs text-gray-600">{destination}</p>
 					</div>
