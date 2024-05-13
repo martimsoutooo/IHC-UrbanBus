@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { stops } from './consts/stops.js';
 
 
 export default function StopSearchHint(props) {
@@ -7,24 +8,6 @@ export default function StopSearchHint(props) {
 	React.useEffect(() => {
    		setSearchTerm(props.search)
  	}, [props.search])
-
-	const stops = [
-		{name: 'Plaza de la Revolución', id: 1},
-		{name: 'Calle 23', id: 2},
-		{name: 'Calle 26', id: 3},
-		{name: 'Calle 100', id: 4},
-		{name: 'Calle 142', id: 5},
-		{name: 'Calle 170', id: 6},
-		{name: 'Calle 190', id: 7},
-		{name: 'Calle 200', id: 8},
-		{name: 'Calle 222', id: 9},
-		{name: 'Calle 250', id: 10},
-		{name: 'Calle 272', id: 11},
-		{name: 'Calle 300', id: 12},
-		{name: 'Calle 330', id: 13},
-		{name: 'Calle 350', id: 14},
-		{name: 'Calle 400', id: 15},
-		]
 
 	const handleClick = (stop) => {
 		// emit event to parent
