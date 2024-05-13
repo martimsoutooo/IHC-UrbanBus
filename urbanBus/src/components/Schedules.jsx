@@ -68,9 +68,9 @@ export default function Schedules() {
 		}, 150));
 	}
 
-	const showHintList = (target) => {
+	const showHintList = (value) => {
 
-		setSearchTerm(target.value);
+		setSearchTerm(value);
 		setTimeout(() => {
 			hintList.classList.remove('hidden');
 		}, 150);
@@ -87,7 +87,7 @@ export default function Schedules() {
 	const handleFocus = (e) => {
 		hideMenu2Transition();
 		hideResultList();
-		showHintList(e.target);
+		showHintList(e.target.value);
 		if (e.target.parentElement.id === 'lastStop') {
 			setIsLastStopTheLastFocus(true);
 			setLastStop("");
@@ -124,12 +124,14 @@ export default function Schedules() {
 	}
 
 	const handleChange = (e) => {
-		console.log(e.target.value);
-		setSearchTerm(e.target.value);
-		if (e.target.parentElement.id === 'startStop') {
-			setStartStop(e.target.value);
+		let val = e.target.value;
+		console.log(val);
+		setSearchTerm(val);
+		if (e.target.parentElement.id === 'firstStop') {
+			console.log("start stop")
+			setStartStop(val);
 		} else if (e.target.parentElement.id === 'lastStop') {
-			setLastStop(e.target.value);
+			setLastStop(val);
 		}
 	}
 
