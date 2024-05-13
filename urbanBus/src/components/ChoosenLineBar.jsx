@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react';
 export default function StopListResult(props) {
 	const [line, setLine] = useState(props.line);
 
+    useEffect(() => {
+		setLine(props.line);
+	}, [props.line]);
+
 	return (
         <div className="flex flex-row items-center gap-4">
             <button className="btn btn-circle btn-ghost">

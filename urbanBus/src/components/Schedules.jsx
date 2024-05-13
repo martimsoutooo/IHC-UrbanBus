@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import StopSearchHint from './StopSearchHint.jsx';
 import StopListResult from './StopListResult.jsx';
 import '../styles/schedules.css';
+import SchedulesTripsBar from './ChoosenLineBar.jsx';
 
 export default function Schedules() {
 	const [searchTerm, setSearchTerm] = useState('');
@@ -114,6 +115,14 @@ export default function Schedules() {
 		resultList.classList.add('hidden');
 	}
 
+	const showLineBar = () => {
+		lineBar.classList.remove('hidden');
+	}
+
+	const hideLineBar = () => {
+		lineBar.classList.add('hidden');
+	}
+
 	const handleChange = (e) => {
 		console.log(e.target.value);
 		setSearchTerm(e.target.value);
@@ -149,6 +158,7 @@ export default function Schedules() {
 		setSelectedLine(line);
 		hideMenu2Transition(true);
 		hideStopInputs();
+		showLineBar();
 		showResultList();
 	}
 
@@ -170,6 +180,11 @@ export default function Schedules() {
 					<div id="hintList" className="flex-1 overflow-auto hidden">
 						<StopSearchHint search={searchTerm} onChange={handleSelection} onFocus={handleSelectionFocus} />
 					</div>
+
+					<div id='lineBar' className="hidden">
+                		<SchedulesTripsBar line={selectedLine} />
+            		</div>
+
 					<div id="resultList" className="flex1 overflow-auto hidden">
 						<StopListResult line={selectedLine} firstStop={startStop} lastStop={lastStop} />
 					</div>
