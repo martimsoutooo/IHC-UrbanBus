@@ -9,7 +9,7 @@ function Map() {
 			zoomControl: false // disable the default zoom control
 		}).setView([40.6412, -8.65362], 13);
 
-		// Add a new zoom control in the 'bottomright' position
+		// Add a new zoom control in the 'bottomleft' position
 		L.control.zoom({
 			position: 'bottomleft',
 			className: 'custom-zoom-control'
@@ -25,7 +25,7 @@ function Map() {
 		// Add markers to the map
 		for (let i = 0; i < stops.length; i++) {
 			const stop = stops[i];
-			L.marker([stop.longitude, stop.latitude]).addTo(map).bindPopup(stop.name + '<div><a href="/app?search=' + stop.name + '"><button class="btn btn-sm btn-primary">Go to</button></div>');
+			L.marker([stop.longitude, stop.latitude]).addTo(map).bindPopup(stop.name + '<div class="flex justify-center"><a href="/app?search=' + stop.name + '"><button class="btn btn-sm btn-neutral text-white mt-3">Go to</button></div>');
 		}
 
             // Try to locate the user's current position
