@@ -1,21 +1,27 @@
 ---
-interface Props{
+interface Props {
     href: string;
     icon: string;
+    active: boolean;
 }
 
-const {href, icon} = Astro.props;
+const { href, icon, active } = Astro.props;
 ---
 
 <button>
     <a href={href}>
-        <i class={icon}></i>     
+        <i class={`${icon} ${active ? 'text-primary' : ''}`}></i>
     </a>
 </button>
 
 <style>
-    i{
-        color: white;
+    i {
+        color: white; /* Cor padrão */
         font-size: x-large;
     }
+    .text-primary {
+        color: #7c7c85; /* Exemplo de cor para item ativo */
+    }
 </style>
+
+
