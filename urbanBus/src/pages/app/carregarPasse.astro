@@ -3,14 +3,52 @@ import LayoutMobile from "../../layouts/LayoutMobile.astro";
 ---
 
 <LayoutMobile>
-    <select class="select select-bordered w-full">
+    <select class="select select-bordered w-full text-lg" id="opcao">
         <option disabled selected>Pick your payment method</option>
-        <option>MbWay</option>
-        <option>Multibanco</option>
-        <option>PayPal</option>
+        <option value="mbway">MbWay</option>
+        <option value="visa">Visa</option>
+        <option value="paypal">PayPal</option>
     </select>
-
-    <div class="btn btn-neutral w-full mt-2" onclick="verify()">
-        Confirm
+    
+    <div id="mbway" style="display: none;">
+        <label class="input input-bordered flex items-center gap-2 mt-2">
+            Phone
+            <input id="mbwayInput" type="number" class="grow" placeholder="987 654 321" />
+        </label>
     </div>
+    
+    <div id="visa" style="display: none;">
+        <label class="input input-bordered flex items-center gap-2 mt-2">
+            Number
+            <input id="visaInput" type="text" class="grow" placeholder="1234 1234 1234 1234" />
+        </label>
+    </div>
+    
+    <div id="paypal" style="display: none;">
+        <label class="input input-bordered flex items-center gap-2 mt-2">
+            Email
+            <input id="paypalInput" type="text" class="grow" placeholder="urbanBus@bus.com" />
+        </label>
+    </div>
+   
+    
+    <a href="/app/loading" class="btn btn-neutral w-full mt-4">Confirm</a>
+    
+    <script>
+        document.getElementById("opcao").addEventListener("change", function() {
+            var opcaoSelecionada = this.value;
+    
+            // Oculta todos os conteúdos
+            document.getElementById("mbway").style.display = "none";
+            document.getElementById("visa").style.display = "none";
+            document.getElementById("paypal").style.display = "none";
+    
+            // Exibe o conteúdo correspondente à opção selecionada
+            document.getElementById(opcaoSelecionada).style.display = "block";
+    
+            // Oculta a mensagem de erro ao trocar a opção
+            document.getElementById("error-msg").style.display = "none";
+        });
+    </script>
+    
 </LayoutMobile>
