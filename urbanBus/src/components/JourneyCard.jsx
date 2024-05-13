@@ -4,23 +4,31 @@ import { useState, useEffect } from 'react';
 export default function JourneyCard(props) {
 	const [line, setLine] = useState(props.line);
 	const [startTime, setStartTime] = useState(props.startTime);
+	const [delay, setDelay] = useState(props.delay);
 	const [endTime, setEndTime] = useState(props.endTime);
+	const [departure, setDeparture] = useState(props.departure);
+	const [destination, setDestination] = useState(props.destination);
 
 	useEffect(() => {
 		setLine(props.line);
 		setStartTime(props.startTime);
+		setDelay(props.delay);
 		setEndTime(props.endTime);
-	}, [props.line, props.startTime, props.endTime]);
+		setDeparture(props.departure);
+		setDestination(props.destination);
+	}, [props.line, props.startTime, props.delay, props.endTime, props.departure, props.destination]);
 
 	return (
-		<div className="card bg-white shadow-md rounded-lg cursor-pointer p-4 m-4">
+		<div className="card bg-white shadow-md rounded-lg cursor-pointer p-4 my-4">
 			<div className="flex justify-between items-center">
 				<div className="flex items-center">
 					<div className="flex items-center justify-center bg-[#00b8a1] text-white w-12 h-12 rounded-full">
 						{line}
 					</div>
 					<div className="ml-4">
-						<p className="text-lg font-semibold text-gray-800">{startTime} - {endTime}</p>
+						<p className="text-lg font-semibold text-gray-800">{startTime} - {endTime}  {delay && <span className="badge badge-default text-xs">+{delay} min</span>}</p>
+						<p className="text-xs text-gray-600">{departure}</p>
+						<p className="text-xs text-gray-600">{destination}</p>
 					</div>
 				</div>
 				<svg className="size-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
