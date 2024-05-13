@@ -48,8 +48,15 @@ function Map() {
 	]
 	useEffect(() => {
 		const map = L.map('map',{
-			attributionControl: false
+			attributionControl: false,
+			zoomControl: false // disable the default zoom control
 		}).setView([40.6412, -8.65362], 13);
+
+		// Add a new zoom control in the 'bottomright' position
+		L.control.zoom({
+			position: 'bottomleft',
+			className: 'custom-zoom-control'
+		}).addTo(map);
 
 		// Add a tile layer to the map
 		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -97,7 +104,58 @@ function Map() {
 
 	}, []);
 
-	return <div id="map" className="h-svh"/>;
+	return (
+		<div id="map" className="h-svh">
+			<style jsx>{`
+				.leaflet-bottom .leaflet-control {
+					margin-bottom: 110px !important;
+					margin-left: 20px !important;
+				}
+
+				.leaflet-bar a, .leaflet-bar a:hover {
+					background-color: #333c4d;
+					border-bottom: 1px solid #ccc;
+					display: block;
+					color: white;
+
+					width: 40px !important; /* Increase the width */
+					height: 40px !important; /* Increase the height */
+					line-height: 40px !important; /* Center the '+' and '-' vertically */
+				}
+
+				/* When you can't zoom in or out anymore */
+				.leaflet-bar a.leaflet-disabled {
+					cursor: default;
+					background-color: black;
+					color: white;
+				}
+
+				/* External border radius */
+				.leaflet-touch .leaflet-bar {
+					-webkit-border-radius: 12px;
+							border-radius: 12px;
+				}
+
+				/* Internal border radius */
+				/* '+' button */
+				.leaflet-touch .leaflet-bar a:first-child {
+					-webkit-border-top-left-radius: 9px;
+							border-top-left-radius: 9px;
+					-webkit-border-top-right-radius: 9px;
+							border-top-right-radius: 9px;
+				}
+
+				/* '-' button */
+				.leaflet-touch .leaflet-bar a:last-child {
+					-webkit-border-bottom-left-radius: 9px;
+							border-bottom-left-radius: 9px;
+					-webkit-border-bottom-right-radius: 9px;
+							border-bottom-right-radius: 9px;
+					border-bottom: none;
+				}
+			`}</style>
+		</div>
+	);
 }
 
 export default Map;
