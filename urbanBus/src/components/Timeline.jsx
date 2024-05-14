@@ -6,7 +6,7 @@ import '../styles/schedules.css';
 
 export default function Timeline() {
     const stops = [
-        {id: 1, name: 'Tanques de Esgueira', time: '12:40H'},
+        {id: 1, name: 'Tanques de Esgueira A', time: '12:40H'},
         {id: 2, name: 'Escola Jaime Magalhães', time: '12:50H'},
         {id: 3, name: 'R. Luís G. Carvalho', time: '13:00H'},
         {id: 4, name: 'Av. Dr. Lourenço Peixinho - CTT B', time: '13:10H'},
@@ -15,7 +15,7 @@ export default function Timeline() {
         {id: 7, name: 'Hospital / Universidade A', time: '13:40H'},
         {id: 8, name: 'ISCAUA A', time: '13:50H'},
 		{id: 9, name: 'Escolas de Santiago', time: '14:00H'},
-        {id: 10, name: 'Rua de Ovar', time: '14:00H'},
+        {id: 10, name: 'R. de Ovar', time: '14:00H'},
     ];
 
 	return (
