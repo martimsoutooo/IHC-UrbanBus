@@ -5,6 +5,18 @@ import StopListResult from './StopListResult.jsx';
 import '../styles/schedules.css';
 
 export default function Timeline() {
+    const stops = [
+        {id: 1, name: 'Paragem 1', time: '12:40H'},
+        {id: 2, name: 'Paragem 2', time: '12:50H'},
+        {id: 3, name: 'Paragem 3', time: '13:00H'},
+        {id: 4, name: 'Paragem 4', time: '13:10H'},
+        {id: 5, name: 'Paragem 5', time: '13:20H'},
+        {id: 6, name: 'Paragem 6', time: '13:30H'},
+        {id: 7, name: 'Paragem 7', time: '13:40H'},
+        {id: 8, name: 'Paragem 8', time: '13:50H'},
+        {id: 9, name: 'Paragem 9', time: '14:00H'},
+    ];
+
 	return (
         <div className='overflow-auto'>
             <div className="flex flex-row items-center gap-4">
@@ -27,85 +39,39 @@ export default function Timeline() {
 
                     <div className='flex flex-row items-center gap-2 badge-neutral rounded-lg p-1'>
                         <div className='flex flex-row items-center gap-2'>
-                            <p className='text-xl'>12h40m</p>
+                            <p className='text-xl'>{stops[0].time}</p>
                             <p className='text-xl'>-</p>
-                            <p className='text-xl'>14h00m</p>
+                            <p className='text-xl'>{stops[stops.length-1].time}</p>
                         </div>
                     </div>
                 </div>
 
 
                 <ul className="timeline timeline-vertical timeline-compact ml-8">
-                    <li>
-                        <div className="timeline-start">12:40H</div>
-                        <div className="timeline-middle">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
-                        </div>
-                        <div className="timeline-end font-bold h-20 mt-0">Paragem 1</div>
-                        <hr />
-                    </li>
-
-                    <li>
-                        <div className="timeline-start" >13:00H</div>
-                        <div className="timeline-middle" >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
-                        </div>
-                        <div className="timeline-end font-bold h-20  mt-0">Paragem 2</div>
-                        <hr />
-                    </li>
-
-                    <li>
-                        <div className="timeline-start" >13:20H</div>
-                        <div className="timeline-middle" >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
-                        </div>
-                        <div className="timeline-end font-bold h-20 mt-0">Paragem 3</div>
-                        <hr />
-                    </li>
-
-                    <li>
-                        <div className="timeline-start" >13:40H</div>
-                        <div className="timeline-middle" >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
-                        </div>
-                        <div className="timeline-end h-20 font-bold mt-0">Paragem 4</div>
-                        <hr />
-                    </li>
-
-                    <li>
-                        <div className="timeline-start" >13:40H</div>
-                        <div className="timeline-middle" >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
-                        </div>
-                        <div className="timeline-end h-20 font-bold mt-0">Paragem 4</div>
-                        <hr />
-                    </li>
-
-                    <li>
-                        <div className="timeline-start" >13:40H</div>
-                        <div className="timeline-middle" >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
-                        </div>
-                        <div className="timeline-end h-20 font-bold mt-0">Paragem 4</div>
-                        <hr />
-                    </li>
-
-                    <li>
-                        <div className="timeline-start" >13:40H</div>
-                        <div className="timeline-middle" >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
-                        </div>
-                        <div className="timeline-end h-20 font-bold mt-0">Paragem 4</div>
-                        <hr />
-                    </li>
-
-                    <li>
-                        <div className="timeline-start" >14:00H</div>
-                        <div className="timeline-middle" >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
-                        </div>
-                        <div className="timeline-end font-bold h-20 mt-0">Paragem 5</div>
-                    </li>
+                    {stops.map((stop, index) => {
+                        if (index === stops.length - 1) {
+                            return (
+                                <li>
+                                    <div className="timeline-start">12:40H</div>
+                                        <div className="timeline-middle">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
+                                        </div>
+                                    <div className="timeline-end font-bold h-20 mt-0">{stop.name}</div>
+                                </li>
+                            );
+                        } else {
+                            return (
+                                <li>
+                                    <div className="timeline-start">12:40H</div>
+                                        <div className="timeline-middle">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
+                                        </div>
+                                    <div className="timeline-end font-bold h-20 mt-0">{stop.name}</div>
+                                    <hr />
+                                </li>
+                            );
+                        }
+                    })}
                 </ul>
             </div>
         </div>

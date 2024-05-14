@@ -6,19 +6,19 @@ import NextBus from '../../components/NextBus.jsx'
 
 <LayoutMobile>
 	<div class=container>
-		<h1 class="text-2xl font-bold">Avisos</h1>
+		<h1 class="text-2xl font-bold">Warnings</h1>
 		<div role="alert" class="alert alert-warning grid-flow-col mt-4 text-start justify-items-start">
 			<span><svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg></span>
 			<span id="warning" class="w-full text-nowrap overflow-x-auto"></span>
 		</div>
 
-		<h1 class="text-2xl font-bold mt-8">Próximos autocarros</h1>
+		<h1 class="text-2xl font-bold mt-8">Next Buses</h1>
 		<NextBus client:load />
 	</div>
 <script>
 	const warning_message = [
-		"Alterações de horários - Linha 2",
-		"Desvio de itinerário - Linhas 4 e 5",
+		"Schedules changes - Line 2",
+		"Route deviation - Lines 4 e 5",
 	];
 
 	// Randomize the warning message
