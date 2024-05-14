@@ -25,7 +25,7 @@ export default function Timeline() {
                         <svg className='h-6' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
                     </a>
                 </button>
-                <p className='text-2xl font-bold'>Schedule - Line 1</p>
+                <p className='text-2xl font-bold'>Timeline</p> 
             </div>
 
             <div className="divider my-0"></div>
@@ -52,7 +52,7 @@ export default function Timeline() {
                         if (index === stops.length - 1) {
                             return (
                                 <li>
-                                    <div className="timeline-start">12:40H</div>
+                                    <div className="timeline-start">{stop.time}</div>
                                         <div className="timeline-middle">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
                                         </div>
@@ -62,7 +62,7 @@ export default function Timeline() {
                         } else {
                             return (
                                 <li>
-                                    <div className="timeline-start">12:40H</div>
+                                    <div className="timeline-start">{stop.time}</div>
                                         <div className="timeline-middle">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" className="w-4 h-4 mb-1"><path fillRule="evenodd" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512z" clipRule="evenodd"/></svg>
                                         </div>
