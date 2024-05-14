@@ -6,15 +6,16 @@ import '../styles/schedules.css';
 
 export default function Timeline() {
     const stops = [
-        {id: 1, name: 'Paragem 1', time: '12:40H'},
-        {id: 2, name: 'Paragem 2', time: '12:50H'},
-        {id: 3, name: 'Paragem 3', time: '13:00H'},
-        {id: 4, name: 'Paragem 4', time: '13:10H'},
-        {id: 5, name: 'Paragem 5', time: '13:20H'},
-        {id: 6, name: 'Paragem 6', time: '13:30H'},
-        {id: 7, name: 'Paragem 7', time: '13:40H'},
-        {id: 8, name: 'Paragem 8', time: '13:50H'},
-        {id: 9, name: 'Paragem 9', time: '14:00H'},
+        {id: 1, name: 'Tanques de Esgueira', time: '12:40H'},
+        {id: 2, name: 'Escola Jaime Magalhães', time: '12:50H'},
+        {id: 3, name: 'R. Luís G. Carvalho', time: '13:00H'},
+        {id: 4, name: 'Av. Dr. Lourenço Peixinho - CTT B', time: '13:10H'},
+        {id: 5, name: 'Av. Dr. Lourenço Peixinho - Capitania B', time: '13:20H'},
+        {id: 6, name: 'Caçadores 10 - Misericórdia', time: '13:30H'},
+        {id: 7, name: 'Hospital / Universidade A', time: '13:40H'},
+        {id: 8, name: 'ISCAUA A', time: '13:50H'},
+		{id: 9, name: 'Escolas de Santiago', time: '14:00H'},
+        {id: 10, name: 'Rua de Ovar', time: '14:00H'},
     ];
 
 	return (
