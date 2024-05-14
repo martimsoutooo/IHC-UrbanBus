@@ -61,9 +61,14 @@ export default function StopListResult(props) {
 		{line: 'L4', firstStop: {name: 'Tanques de Esgueira', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'Rua de Ovar', lat: -23.550520, lon: -46.633308}, startTime: '21:00', endTime: '21:30'},
 		{line: 'L1', firstStop: {name: 'Tanques de Esgueira', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'Rua de Ovar', lat: -23.550520, lon: -46.633308}, startTime: '22:00', endTime: '22:30'},
 		{line: 'L3', firstStop: {name: 'Tanques de Esgueira', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'Rua de Ovar', lat: -23.550520, lon: -46.633308}, startTime: '22:28', endTime: '22:51'}
-	] : [
 		{line: 'L1', firstStop: {name: 'Hospital / Universidade A', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'EB23 Rio Novo Príncipe', lat: -23.550520, lon: -46.633308}, startTime: '16:42', endTime: '16:59'},
 		{line: 'L4', firstStop: {name: 'Hospital / Universidade A', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'EB23 do Eixo', lat: -23.550520, lon: -46.633308}, startTime: '17:08', endTime: '17:25'},
+		{line: 'L2', firstStop: {name: 'Hospital / Universidade A', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'Monte Cacia', lat: -23.550520, lon: -46.633308}, startTime: '17:13', endTime: '17:38'},
+		{line: 'L6', firstStop: {name: 'Hospital / Universidade A', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'Escolas Velhas Oliveirinhas', lat: -23.550520, lon: -46.633308}, startTime: '17:31', endTime: '17:51'},
+		{line: 'L1', firstStop: {name: 'Hospital / Universidade A', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'EB23 Rio Novo Príncipe', lat: -23.550520, lon: -46.633308}, startTime: '17:42', endTime: '17:59'}
+	] : [
+		{line: 'L1', firstStop: {name: 'Hospital / Universidade A', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'EB23 Rio Novo Príncipe', lat: -23.550520, lon: -46.633308}, startTime: '16:42', endTime: '16:59', delay: 9},
+		{line: 'L4', firstStop: {name: 'Hospital / Universidade A', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'EB23 do Eixo', lat: -23.550520, lon: -46.633308}, startTime: '17:08', endTime: '17:25', delay: 4},
 		{line: 'L2', firstStop: {name: 'Hospital / Universidade A', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'Monte Cacia', lat: -23.550520, lon: -46.633308}, startTime: '17:13', endTime: '17:38'},
 		{line: 'L6', firstStop: {name: 'Hospital / Universidade A', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'Escolas Velhas Oliveirinhas', lat: -23.550520, lon: -46.633308}, startTime: '17:31', endTime: '17:51'},
 		{line: 'L1', firstStop: {name: 'Hospital / Universidade A', lat: -23.550520, lon: -46.633308}, lastStop: {name: 'EB23 Rio Novo Príncipe', lat: -23.550520, lon: -46.633308}, startTime: '17:42', endTime: '17:59'},
