@@ -1,4 +1,4 @@
-export const stops = [
+export const _stops = [
     {
         "id": 45,
         "name": "109 / Depósito de Cacia A",
