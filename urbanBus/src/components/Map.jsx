@@ -7,7 +7,7 @@ function Map() {
 		const map = L.map('map',{
 			attributionControl: false,
 			zoomControl: false // disable the default zoom control
-		}).setView([40.6412, -8.65362], 13);
+		}).setView([40.633039, -8.659193], 15);
 
 		// Add a new zoom control in the 'bottomleft' position
 		L.control.zoom({
@@ -30,18 +30,23 @@ function Map() {
 
             // Try to locate the user's current position
             map.locate({ setView: true, maxZoom: 16 });
+				let lat = 40.633039;
+				let lng = -8.659193;
 
-            // When the location is found, update the marker position
-            function onLocationFound(e) {
-                const { lat, lng } = e.latlng;
 				// Add a marker for the current location
-				const marker = L.circleMarker([lat, lng], {
+				const locationMarker = L.circleMarker([lat, lng], {
 						radius: 10,
 						color: 'blue',
 						fillColor: '#3388ff',
 						fillOpacity: 0.5
 					}).addTo(map);
-				marker.bindPopup("You are here").openPopup();
+				locationMarker.bindPopup("You are here").openPopup();
+
+            // When the location is found, update the marker position
+            function onLocationFound(e) {
+                const { lat, lng } = e.latlng;
+				
+				locationMarker.setLatLng([lat, lng]);
 			}
 
 		map.on('locationfound', onLocationFound);

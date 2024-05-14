@@ -414,7 +414,7 @@ export const stops = [
     },
     {
         "id": 19,
-        "name": "R.de Ovar - Urbanização Santiago",
+        "name": "R. de Ovar - Urbanização Santiago",
         "location": "R. de Ovar 4, 3810-106 Aveiro",
         "longitude": 40.627182,
         "latitude": -8.648191
