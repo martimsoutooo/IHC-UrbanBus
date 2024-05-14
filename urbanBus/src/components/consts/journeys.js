@@ -1,4 +1,4 @@
-const journeys = [
+export const journeys = [
     {"line": "L1", "firstStop": {"name": "Hospital / Universidade B"}, "lastStop": {"name": "Escola de Eirol A"}, "startTime": "7:00", "endTime": "7:30"},
     {"line": "L1", "firstStop": {"name": "Escola de Eirol A"}, "lastStop": {"name": "Capela da Taipa A"}, "startTime": "7:00", "endTime": "8:00"},
     {"line": "L2", "firstStop": {"name": "Azurva (Pontão A17) B"}, "lastStop": {"name": "Carregal - Areosa A"}, "startTime": "7:00", "endTime": "7:00", "delay": 7},
