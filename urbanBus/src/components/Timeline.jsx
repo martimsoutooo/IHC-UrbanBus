@@ -5,19 +5,18 @@ import StopListResult from './StopListResult.jsx';
 import '../styles/schedules.css';
 
 export default function Timeline(props) {
-    
-    const line = 1;//props.line;
+    const line = props.line;
 
     const stops = [
         {id: 1, name: 'Tanques de Esgueira A', time: '09:00H'},
         {id: 2, name: 'Escola Jaime Magalhães', time: '09:05H'},
         {id: 3, name: 'R. Luís G. Carvalho', time: '09:10H'},
-        {id: 4, name: 'Av. Dr. Lourenço Peixinho - CTT B', time: '09:13HH'},
+        {id: 4, name: 'Av. Dr. Lourenço Peixinho - CTT B', time: '09:13H'},
         {id: 5, name: 'Av. Dr. Lourenço Peixinho - Capitania B', time: '09:15H'},
         {id: 6, name: 'Caçadores 10 - Misericórdia', time: '09:18H'},
         {id: 7, name: 'Hospital / Universidade A', time: '09:20H'},
         {id: 8, name: 'ISCAUA A', time: '09:23H'},
-		{id: 9, name: 'Escolas de Santiago', time: '09:27H'},
+        {id: 9, name: 'Escolas de Santiago', time: '09:27H'},
         {id: 10, name: 'R. de Ovar', time: '09:30H'},
     ];
 
