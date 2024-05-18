@@ -12,9 +12,9 @@ export default function ClosestsCard(props) {
 
     return (
         <div className='flex flex-col gap-3'>
-            {closestStops.map((stop, index) => {
+            {closestStops.map((stop) => {
                 return (
-                    <div className="card w-full bg-base-100 card-bordered card-compact">
+                    <div key={stop.id} className="card w-full bg-base-100 card-bordered card-compact">
                         <a href={"/app?search=" + stop.name}>
                             <div className="card-body flex flex-row">
                                 <div className="basis-3/4 ml-2">
