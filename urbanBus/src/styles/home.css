@@ -1,0 +1,4 @@
+.next-bus-container {
+	height: calc(100vh - 21rem); /* Adjust to ensure it doesn't surpass the navbar */
+	overflow-y: auto;
+}
