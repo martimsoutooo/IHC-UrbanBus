@@ -12,6 +12,7 @@ export default function NextBus({ hideCards, showCards }) {
 		const search = urlParams.get('search');
 		console.log('search:', search)
 		if (search) {
+			hideCards();
 			setSearchTerm(search);
 			resultList.classList.remove('hidden');
 		}
