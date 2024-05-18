@@ -2,3 +2,8 @@
 	height: calc(100vh - 21rem); /* Adjust to ensure it doesn't surpass the navbar */
 	overflow-y: auto;
 }
+
+.closest-stops-container {
+	height: calc(100vh - 33rem); /* Adjust to ensure it doesn't surpass the navbar */
+	overflow-y: auto;
+}

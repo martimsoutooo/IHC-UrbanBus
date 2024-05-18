@@ -37,17 +37,19 @@ export default function Home() {
                 <span id="warning" className="w-full text-nowrap overflow-x-auto">{warning_message[random_warning]}</span>
             </div>
 
-            <div className='mt-12'>
+            <div className='mt-16'>
                 <h1 className="text-2xl font-bold">Next Buses</h1>
                 <div id='compNextBus'>
-                <NextBus hideCards={handleNextBusFocus} showCards={handleNextBusBlur} />
+                    <NextBus hideCards={handleNextBusFocus} showCards={handleNextBusBlur} />
                 </div>
             </div>
 
             {showClosestsCard && (
-                <div className='mt-24'>
+                <div className='mt-16'>
                     <h1 className="text-2xl font-bold mb-4">Closest Stops</h1>
-                    <ClosestsCard />
+                    <div className='flex-1 closest-stops-container'>
+                        <ClosestsCard />
+                    </div>
                 </div>
             )}
         </div>
