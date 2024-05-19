@@ -40,7 +40,7 @@ export default function StopSearchHint(props) {
 			if (stop.name.toLowerCase().includes(searchTerm.toLowerCase())) {
 				return (
 					<div key={stop.id}>
-						<li onClick={() => {handleClick(stop.name)}} onMouseDown={() => {handleFocus(stop.name)}}>
+						<li onClick={() => {handleClick(stop)}} onMouseDown={() => {handleFocus(stop)}}>
 							<a>{stop.name}</a>
 						</li>
 						<div className="divider h-0.5 my-0"></div>

@@ -1,32 +1,48 @@
 import React from 'react'; 
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import StopSearchHint from './StopSearchHint.jsx';
 import StopListResult from './StopListResult.jsx';
 import '../styles/schedules.css';
 import SchedulesTripsBar from './ChoosenLineBar.jsx';
+import { baseURL } from './consts/config.js';
 
 export default function Schedules() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [startStop, setStartStop] = useState('');
 	const [lastStop, setLastStop] = useState('');
+	const [startStopId, setStartStopId] = useState('');
+	const [lastStopId, setLastStopId] = useState('');
 	const [isLastStopTheLastFocus, setIsLastStopTheLastFocus] = useState(false);
 	const [selectedLine, setSelectedLine] = useState('');
 
-	let lines = [
-	    {name: 'L1', color: "bg-[#00b8a1]/70", id: 1},
-	    {name: 'L2', color: 'bg-rose-500/50', id: 2},
-	    {name: 'L3', color: 'bg-amber-500/50', id: 3},
-	    {name: 'L4', color: 'bg-lime-500/50', id: 4},
-	    {name: 'L5', color: 'bg-emerald-500/50', id: 5},
-	    {name: 'L6', color: 'bg-cyan-500/50', id: 6},
-	    {name: 'L7', color: 'bg-violet-500/50', id: 7},
-	    {name: 'L8', color: 'bg-fuchsia-500/50', id: 8},
-	    {name: 'L9', color: 'bg-rose-500/50', id: 9},
-	    {name: 'L10', color: 'bg-amber-500/50', id: 10},
-	    {name: 'L11', color: 'bg-lime-500/50', id: 11},
-	    {name: 'AZUL', color: 'bg-blue-500/50', id: 12},
-	    {name: 'VERDE', color: 'bg-green-500/50', id: 13},
-	]
+	const [lines, setLines] = useState([
+	    {name: 'L1', color: "bg-[#00b8a1]/70", number: 1},
+	    {name: 'L2', color: 'bg-rose-500/50', number: 2},
+	    {name: 'L3', color: 'bg-amber-500/50', number: 3},
+	    {name: 'L4', color: 'bg-lime-500/50', number: 4},
+	    {name: 'L5', color: 'bg-emerald-500/50', number: 5},
+	    {name: 'L6', color: 'bg-cyan-500/50', number: 6},
+	    {name: 'L7', color: 'bg-violet-500/50', number: 7},
+	    {name: 'L8', color: 'bg-fuchsia-500/50', number: 8},
+	    {name: 'L9', color: 'bg-rose-500/50', number: 9},
+	    {name: 'L10', color: 'bg-amber-500/50', number: 10},
+	    {name: 'L11', color: 'bg-lime-500/50', number: 11},
+	    {name: 'AZUL', color: 'bg-blue-500/50', number: 12},
+	    {name: 'VERDE', color: 'bg-green-500/50', number: 13},
+	])
+
+	useEffect(() => {
+		// get data from API
+		const fetchData = async () => {
+			const response = await fetch(baseURL + '/api/v1/lines');
+			const data = await response.json();
+			console.log(data);
+			setLines(data);
+		}
+
+		fetchData();
+	}, []);
+
 
 	let animationTimers = [];
 
@@ -136,13 +152,15 @@ export default function Schedules() {
 	}
 
 	const handleSelection = (stop) => {
-		console.log(stop);
+		console.log(stop.name);
 		if (!isLastStopTheLastFocus) {
-			setStartStop(stop);
+			setStartStop(stop.name);
+			setStartStopId(stop.id);
 			if (lastStop.length > 0)
 				showResultList();
 		} else {
-			setLastStop(stop);
+			setLastStop(stop.name);
+			setLastStopId(stop.id);
 			if (startStop.length > 0)
 				showResultList();
 		}
@@ -188,7 +206,7 @@ export default function Schedules() {
             		</div>
 
 					<div id="resultList" className="flex1 overflow-auto hidden">
-						<StopListResult line={selectedLine} firstStop={startStop} lastStop={lastStop} />
+						<StopListResult line={selectedLine} firstStop={startStopId} lastStop={lastStopId} />
 					</div>
 				</div>
 			</div>
@@ -198,7 +216,8 @@ export default function Schedules() {
 					<div className="flex justify-center text-sm font-light mb-5">choose a line</div>
 					<div className="flex flex-wrap justify-center gap-3">
 						{(lines).map((line) => (
-							<button key={line.id} onClick={() => {lineSelection(line.name)}} className={"btn btn-circle w-14 h-14 " + line.color}>{line.name}</button>
+							<button key={line.number} onClick={() => {lineSelection(line.designation)}} className="btn btn-circle w-14 h-14 text-white"
+								style={{backgroundColor: line.color}}>{line.designation}</button>
 						))}
 					</div>
 				</div>
