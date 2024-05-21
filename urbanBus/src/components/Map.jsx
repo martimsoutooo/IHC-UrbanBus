@@ -42,7 +42,11 @@ function Map() {
 		// Add markers to the map
 		for (let i = 0; i < _stops.length; i++) {
 			const stop = _stops[i];
-			L.marker([stop.latitude, stop.longitude]).addTo(map).bindPopup(stop.name + '<div class="flex justify-center"><a href="/app?search=' + stop.name + '"><button class="btn btn-sm btn-neutral text-white mt-3">Next Buses</button></div>');
+			const addedMarker = L.marker([stop.latitude, stop.longitude])
+			addedMarker.addTo(map).bindPopup(stop.name + '<div class="flex justify-center"><a href="/app?search=' + stop.name + '"><button class="btn btn-sm btn-neutral text-white mt-3">Next Buses</button></div>');
+			if ((latParam && lngParam) && (stop.latitude == latParam && stop.longitude == lngParam)) {
+				addedMarker.openPopup();
+			}
 		}
 
             // Try to locate the user's current position
@@ -57,7 +61,9 @@ function Map() {
 						fillColor: '#3388ff',
 						fillOpacity: 0.5
 					}).addTo(map);
-				locationMarker.bindPopup("You are here").openPopup();
+				if (!(latParam && lngParam)) {
+					locationMarker.bindPopup("You are here").openPopup();
+				}
 
             // When the location is found, update the marker position
             function onLocationFound(e) {
