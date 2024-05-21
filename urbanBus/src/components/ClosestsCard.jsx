@@ -16,7 +16,7 @@ export default function ClosestsCard(props) {
             // Calculate the distance between the user's location and each stop
             let stops = _stops.map((stop) => {
                 const distance = distanceInKmBetweenEarthCoordinates(latitude, longitude, stop.latitude, stop.longitude);
-                console.log(`Distance to ${stop.name}(${stop.latitude} ${stop.longitude}): ${distance}`);
+                console.log(`Distance to ${stop.name} (${stop.latitude} ${stop.longitude}): ${distance}`);
                 return { ...stop, distance };
             });
     
