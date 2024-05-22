@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import '../styles/schedules.css';
 
 export default function Timeline(props) {
-	const [line, setLine] = useState('1');
+	const [line, setLine] = useState('L1');
+    console.log('line', line);
 
 	useEffect(() => {
 		// get url line parameter
