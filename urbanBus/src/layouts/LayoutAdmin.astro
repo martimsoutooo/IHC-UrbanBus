@@ -1,0 +1,12 @@
+---
+import Layout from "./Layout.astro"
+import Nav from "../components/Nav.astro"
+
+---
+
+<Layout title="Home">
+    <Nav/>
+    <div class="w-full h-svh px-6 pt-16 pb-20">
+        <slot />
+    </div>
+</Layout>
