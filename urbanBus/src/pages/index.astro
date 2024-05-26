@@ -1,13 +1,18 @@
 ---
 import LayoutAdmin from '../layouts/LayoutAdmin.astro';
+import SubPageLeft from '../components/AdminWeb/SubPageLeft.jsx';
 ---
 
 <LayoutAdmin title="urbanBus">
-    <div class="mockup-phone fixed right-4">
-        <div class="camera"></div> 
-        <div class="display">
-            <div class="artboard artboard-demo phone-2">
-                <iframe src="/app" class="h-full w-full" title="Iframe Example"></iframe>
+    <div class="flex flex-row h-full">
+        <SubPageLeft client:load />
+
+        <div class="mockup-phone min-w-fit h-fit">
+            <div class="camera"></div> 
+            <div class="display">
+                <div class="artboard artboard-demo phone-2">
+                    <iframe src="/app" class="h-full w-full" title="urbanBus App"></iframe>
+                </div>
             </div>
         </div>
     </div>
