@@ -5,7 +5,7 @@ import StopListResult from './StopListResult.jsx';
 import '../styles/schedules.css';
 
 export default function Timeline(props) {
-    const line = props.choosenLine;
+    const line = props.line;
 
     const stops = [
         {id: 1, name: 'Tanques de Esgueira A', time: '09:00H'},
