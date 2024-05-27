@@ -94,7 +94,7 @@ export default function StopListResult(props) {
 						if (firstStop !== "" && lastStop === "") {
 							return (
 								<li key={journey.line + journey.startTime} onClick={() => {handleClick(journey.line)}} onMouseDown={() => {handleFocus(journey.line)}}>
-									<a href={"/app/tripTimeline/"+journey.line}>
+									<a href={"/app/tripTimeline/"+line}>
 										<JourneyCard line={journey.line} startTime={journey.startTime} endTime={journey.endTime} departure={firstStop} destination={journey.lastStop.name} delay={journey.delay ? journey.delay : ""} />
 									</a>
 								</li>
@@ -102,7 +102,7 @@ export default function StopListResult(props) {
 						} else if (firstStop !== "" && lastStop !== "") {
 							return (
 								<li key={journey.line + journey.startTime} onClick={() => {handleClick(journey.line)}} onMouseDown={() => {handleFocus(journey.line)}}>
-									<a href={"/app/tripTimeline/"+journey.line}>
+									<a href={"/app/tripTimeline/"+line}>
 										<JourneyCard line={journey.line} startTime={journey.startTime} endTime={journey.endTime} departure={firstStop} destination={lastStop} delay={journey.delay ? journey.delay : ""} />
 									</a>
 								</li>
@@ -111,7 +111,7 @@ export default function StopListResult(props) {
 					} else if (journey.line === line) {
 						return (
 							<li key={journey.line + journey.startTime} onClick={() => {handleClick(journey.line)}} onMouseDown={() => {handleFocus(journey.line)}}>
-								<a href={"/app/tripTimeline/"+journey.line}>
+								<a href={"/app/tripTimeline/"+line}>
 									<JourneyCard line={journey.line} startTime={journey.startTime} endTime={journey.endTime} departure={journey.firstStop.name} destination={journey.lastStop.name} delay={journey.delay ? journey.delay : ""} />
 								</a>
 							</li>
