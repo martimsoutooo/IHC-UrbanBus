@@ -3,28 +3,11 @@ import L from 'leaflet';
 import { _stops } from './consts/stops.js';
 
 function Map() {
-	// Default latitude and longitude
-	const defaultLatitude = 40.633039;
-	const defaultLongitude = -8.659193;
-
 	useEffect(() => {
-		// get url lat and lng parameter
-		const urlParams = new URLSearchParams(window.location.search);
-
-		const latParam = urlParams.get('lat');
-		const lngParam = urlParams.get('lng');
-		console.log('URLlat:', latParam);
-		console.log('URLlng:', lngParam);
-
 		const map = L.map('map',{
 			attributionControl: false,
 			zoomControl: false // disable the default zoom control
-		}).setView([defaultLatitude, defaultLongitude], 15);
-
-		if (latParam && lngParam) {
-			// set the map view to the lat and lng parameters
-			map.setView([latParam, lngParam], 16);
-		}
+		}).setView([40.633039, -8.659193], 15);
 
 		// Add a new zoom control in the 'bottomleft' position
 		L.control.zoom({
@@ -42,13 +25,13 @@ function Map() {
 		// Add markers to the map
 		for (let i = 0; i < _stops.length; i++) {
 			const stop = _stops[i];
-			L.marker([stop.latitude, stop.longitude]).addTo(map).bindPopup(stop.name + '<div class="flex justify-center"><a href="/app?search=' + stop.name + '"><button class="btn btn-sm btn-neutral text-white mt-3">Next Buses</button></div>');
+			L.marker([stop.longitude, stop.latitude]).addTo(map).bindPopup(stop.name + '<div class="flex justify-center"><a href="/app?search=' + stop.name + '"><button class="btn btn-sm btn-neutral text-white mt-3">Next Buses</button></div>');
 		}
 
             // Try to locate the user's current position
             map.locate({ setView: true, maxZoom: 16 });
-				let lat = defaultLatitude;
-				let lng = defaultLongitude;
+				let lat = 40.633039;
+				let lng = -8.659193;
 
 				// Add a marker for the current location
 				const locationMarker = L.circleMarker([lat, lng], {
