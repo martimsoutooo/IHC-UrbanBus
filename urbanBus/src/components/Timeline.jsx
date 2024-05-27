@@ -4,10 +4,7 @@ import StopSearchHint from './StopSearchHint.jsx';
 import StopListResult from './StopListResult.jsx';
 import '../styles/schedules.css';
 
-export default function Timeline(props) {
-    
-    const { line } = props.line;
-
+export default function Timeline() {
     const stops = [
         {id: 1, name: 'Tanques de Esgueira A', time: '09:00H'},
         {id: 2, name: 'Escola Jaime Magalhães', time: '09:05H'},
@@ -29,7 +26,7 @@ export default function Timeline(props) {
                         <svg className='h-6' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
                     </a>
                 </button>
-                <p className='text-2xl font-bold'>{line} - Timeline</p> 
+                <p className='text-2xl font-bold'>Timeline</p> 
             </div>
 
             <div className="divider my-0"></div>
