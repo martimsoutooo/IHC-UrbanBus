@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import L from 'leaflet';
 import { _stops } from './consts/stops.js';
+import { baseURL } from './consts/config.js';
 
 function Map() {
 	// Default latitude and longitude
@@ -39,15 +40,40 @@ function Map() {
 			attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
 		}).addTo(map);
 
-		// Add markers to the map
-		for (let i = 0; i < _stops.length; i++) {
-			const stop = _stops[i];
-			const addedMarker = L.marker([stop.latitude, stop.longitude])
-			addedMarker.addTo(map).bindPopup(stop.name + '<div class="flex justify-center"><a href="/app?search=' + stop.name + '"><button class="btn btn-sm btn-neutral text-white mt-3">Next Buses</button></div>');
-			if ((latParam && lngParam) && (stop.latitude == latParam && stop.longitude == lngParam)) {
-				addedMarker.openPopup();
+		// Fetch the stops from the API
+		let stops = _stops;
+		const fetchStops = async () => {
+			const response = await fetch(`${baseURL}/api/v1/stops`);
+			const data = await response.json();
+			return data;
+		}
+
+		const addStopsToMap = (stops) => {
+			// Remove all markers from the map
+			map.eachLayer(layer => {
+				if (layer instanceof L.Marker) {
+					map.removeLayer(layer);
+				}
+			});
+			// Add markers to the map
+			for (let i = 0; i < stops.length; i++) {
+				const stop = stops[i];
+				const addedMarker = L.marker([stop.latitude, stop.longitude])
+				addedMarker.addTo(map).bindPopup(stop.name + '<div class="flex justify-center"><a href="/app?search=' + stop.name + '"><button class="btn btn-sm btn-neutral text-white mt-3">Next Buses</button></div>');
+				if ((latParam && lngParam) && (stop.latitude == latParam && stop.longitude == lngParam)) {
+					addedMarker.openPopup();
+				}
 			}
 		}
+
+		fetchStops().then(data => {
+			stops = data;
+			console.log('Fetched Stops:', stops);
+			addStopsToMap(stops);
+		}).catch(error => {
+			console.error('Error fetching stops:', error);
+			addStopsToMap(stops);
+		});
 
             // Try to locate the user's current position
             map.locate({ setView: true, maxZoom: 16 });
