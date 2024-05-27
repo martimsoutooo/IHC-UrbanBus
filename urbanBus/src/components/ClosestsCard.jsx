@@ -14,7 +14,7 @@ export default function ClosestsCard(props) {
         <div className='flex flex-col gap-3'>
             {closestStops.map((stop, index) => {
                 return (
-                    <div className="card w-full bg-base-100 card-bordered card-compact">
+                    <div className="card w-full bg-base-100 shadow-xl">
                         <div className="card-body flex flex-row">
                             <div className="basis-3/4">
                                 <h2 className="card-title">{stop.name}</h2>

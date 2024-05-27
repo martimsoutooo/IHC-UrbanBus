@@ -1,5 +1,7 @@
 import React from 'react'; 
 import { useState, useRef } from 'react';
+import StopSearchHint from './StopSearchHint.jsx';
+import StopListResult from './StopListResult.jsx';
 import '../styles/schedules.css';
 
 export default function Timeline(props) {

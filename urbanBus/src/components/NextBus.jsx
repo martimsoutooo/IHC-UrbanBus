@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import StopSearchHint from './StopSearchHint.jsx';
 import StopListResult from './StopListResult.jsx';
 
-export default function NextBus({ hideCards, showCards }) {
+export default function NextBus(props) {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	useEffect(() => {
@@ -27,14 +27,12 @@ export default function NextBus({ hideCards, showCards }) {
 	}
 	
 	const handleFocus = (e) => {
-		hideCards();
 		setSearchTerm(e.target.value);
 		resultList.classList.add('hidden');
 		hintList.classList.remove('hidden');
 	}
 
 	const handleBlur = (e) => {
-		showCards();
 		timers.push(setTimeout(() => {
 			hintList.classList.add('hidden');
 		}, 10));
@@ -48,7 +46,6 @@ export default function NextBus({ hideCards, showCards }) {
 		setSearchTerm(stop);
 		hintList.classList.add('hidden');
 		resultList.classList.remove('hidden');
-		hideCards();
 	}
 
 	const handleSelectionFocus = (e) => {
