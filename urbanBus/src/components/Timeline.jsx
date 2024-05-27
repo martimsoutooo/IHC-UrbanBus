@@ -1,18 +1,9 @@
 import React from 'react'; 
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import '../styles/schedules.css';
 
 export default function Timeline(props) {
-	const [line, setLine] = useState('1');
-
-	useEffect(() => {
-		// get url line parameter
-		const urlParams = new URLSearchParams(window.location.search);
-		const line = urlParams.get('line');
-		if (line) {
-			setLine(line);
-		}
-	}, []);
+    const line = props.choosenLine;
 
     const stops = [
         {id: 1, name: 'Tanques de Esgueira A', time: '09:00H'},
