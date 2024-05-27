@@ -10,15 +10,12 @@ export default function SubPageLeft({ currentPage, setCurrentPage }) {
     
     return (
         <div className="w-full ml-8 mr-8 mt-6">
-            <StopsPage />
-            {/*
             {currentPage === 'Home' && <HomePage setCurrentPage={setCurrentPage} />}
             {currentPage === 'Stops' && <StopsPage />}
             {currentPage === 'Lines' && <LinesPage />}
             {currentPage === 'Tickets' && <TicketsPage />}
             {currentPage === 'Clients' && <ClientsPage />}
             {currentPage === 'Validations' && <ValidationsPage />}
-    */}
         </div>
     )
 }
