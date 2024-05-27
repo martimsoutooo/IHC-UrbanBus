@@ -7,7 +7,7 @@ export default function HomePage({setCurrentPage}) {
                 <p className="text-2xl">Choose any option</p>
             </div>
             
-            <div className="flex flex-wrap gap-12 justify-evenly">
+            <div className="flex flex-wrap gap-12 justify-evenly pb-12">
                 <button className="card card-bordered w-96 bg-base-100 shadow-xl" onClick={() => setCurrentPage('Stops')} >
                     <div className="card-body flex flex-row gap-7">
                         <svg className="size-16 my-auto mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">

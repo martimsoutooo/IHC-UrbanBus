@@ -1,6 +1,3 @@
-// import React, { useContext } from 'react';
-// import { PageContext } from './PageContext.jsx';
-
 export default function Nav({ setCurrentPage }) {
 
     return (

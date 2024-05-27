@@ -1,6 +1,7 @@
 ---
 import LayoutMobile from '../../layouts/LayoutMobile.astro';
 import ModalContent from '../../components/ModalContent';
+import React from "react";
 ---
 
 <LayoutMobile title="Profile">
@@ -56,6 +57,9 @@ import ModalContent from '../../components/ModalContent';
 				</div>
 			</div>
 		</div>
+		<form method="dialog" class="modal-backdrop">
+			<button>close</button>
+		</form>
 	</dialog>
 
 	<div class="btn btn-neutral flex h-12 rounded-xl mt-2 " onclick="my_modal_4.showModal()">
@@ -66,6 +70,9 @@ import ModalContent from '../../components/ModalContent';
 	</div>
 	<dialog id="my_modal_4" class="modal">
 		<ModalContent client:load />
+		<form method="dialog" class="modal-backdrop">
+			<button>close</button>
+		</form>
 	</dialog>
 	
 	<div class="btn btn-neutral flex h-12 rounded-xl mt-2">

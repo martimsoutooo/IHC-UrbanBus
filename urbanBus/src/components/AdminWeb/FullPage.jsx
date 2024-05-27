@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Nav from './Nav.jsx';
 import SubPageLeft from './SubPageLeft.jsx';
 
@@ -10,14 +10,14 @@ export default function Temp() {
         <div>
             <Nav setCurrentPage={setCurrentPage}/>
 
-            <div class="flex flex-row h-full px-6 pt-16">
+            <div className="flex flex-row h-full px-6 pt-16">
                 <SubPageLeft currentPage={currentPage} setCurrentPage={setCurrentPage}/>
 
-                <div class="mockup-phone min-w-fit h-fit">
-                    <div class="camera"></div> 
-                    <div class="display">
-                        <div class="artboard artboard-demo phone-2">
-                            <iframe src="/app" class="h-full w-full" title="urbanBus App"></iframe>
+                <div className="mockup-phone min-w-fit h-fit">
+                    <div className="camera"></div> 
+                    <div className="display">
+                        <div className="artboard artboard-demo phone-2">
+                            <iframe className="h-full w-full" src="/app" title="urbanBus App"></iframe>
                         </div>
                     </div>
                 </div>
