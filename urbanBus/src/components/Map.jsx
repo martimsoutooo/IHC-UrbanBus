@@ -25,7 +25,7 @@ function Map() {
 		// Add markers to the map
 		for (let i = 0; i < _stops.length; i++) {
 			const stop = _stops[i];
-			L.marker([stop.longitude, stop.latitude]).addTo(map).bindPopup(stop.name + '<div class="flex justify-center"><a href="/app?search=' + stop.name + '"><button class="btn btn-sm btn-neutral text-white mt-3">Next Buses</button></div>');
+			L.marker([stop.longitude, stop.latitude]).addTo(map).bindPopup(stop.name + '<div class="flex justify-center"><a href="/app?search=' + stop.name + '"><button class="btn btn-sm btn-neutral text-white mt-3">Go to</button></div>');
 		}
 
             // Try to locate the user's current position
