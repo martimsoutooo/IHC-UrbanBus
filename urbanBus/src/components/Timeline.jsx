@@ -2,9 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import '../styles/schedules.css';
 
-export default function Timeline(props) {
+export default function Timeline() {
 	const [line, setLine] = useState('L1');
-    console.log('line', line);
 
 	useEffect(() => {
 		// get url line parameter
@@ -13,6 +12,7 @@ export default function Timeline(props) {
 		if (line) {
 			setLine(line);
 		}
+        console.log('line', line);
 	}, []);
 
     const stops = [
