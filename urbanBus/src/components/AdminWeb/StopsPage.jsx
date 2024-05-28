@@ -49,7 +49,6 @@ export default function StopsPage() {
             document.getElementById('addStop_modal').close();
             document.getElementById('confirmation_modal').showModal();
 
-
             document.getElementById('name').value = '';
             document.getElementById('location').value = '';
             document.getElementById('latitude').value = '';
@@ -84,29 +83,29 @@ export default function StopsPage() {
 
                     <h3 className="font-bold text-lg">Add stop</h3>
                     <p className="py-4">Fill the inputs blabla</p>
-                    <div className="flex flex-col gap-4">
+                    <form className="flex flex-col gap-4">
                         <label className="input input-bordered flex items-center gap-2">
                             Name
-                            <input id="name" type="text" className="grow" placeholder="Estação de Aveiro"/>
+                            <input id="name" type="text" className="grow" placeholder="Estação de Aveiro" required/>
                         </label>
                         <label className="input input-bordered flex items-center gap-2">
                             Location
                             <input id="location" type="text" className="grow"
-                                   placeholder="R. Cmte. Rocha e Cunha 156, 3800-179 Aveiro"/>
+                                   placeholder="R. Cmte. Rocha e Cunha 156, 3800-179 Aveiro" required/>
                         </label>
                         <label className="input input-bordered flex items-center gap-2">
                             Latitude
-                            <input id="latitude" type="text" className="grow"
-                                   placeholder="40.643450"/>
+                            <input id="latitude" type="number" className="grow"
+                                   placeholder="40.643450" required/>
                         </label>
                         <label className="input input-bordered flex items-center gap-2">
                             Longitude
-                            <input id="longitude" type="text" className="grow"
-                                   placeholder="-8.641420"/>
+                            <input id="longitude" type="number" className="grow"
+                                   placeholder="-8.641420" required/>
                         </label>
 
-                        <button className="btn btn-neutral" onClick={addStop}>Add stop</button>
-                    </div>
+                        <button type="submit" className="btn btn-neutral" onClick={addStop}>Add stop</button>
+                    </form>
                 </div>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
