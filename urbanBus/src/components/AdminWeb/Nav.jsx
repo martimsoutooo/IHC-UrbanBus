@@ -3,7 +3,7 @@ export default function Nav({ setCurrentPage }) {
     return (
         <div className="navbar bg-neutral text-neutral-content md:flex">
             <div className="navbar-start">
-                <a className="btn btn-ghost text-xl" onClick={() => setCurrentPage('Home')}>daisyUI</a>
+                <a className="btn btn-ghost text-xl" onClick={() => setCurrentPage('Home')}>urbanBus.</a>
             </div>
             <div className="navbar-center md:flex">
                     <ul className="menu menu-horizontal px-1">

@@ -5,23 +5,25 @@ import { autocomplete } from './../consts/autoComplete.js';
 export default function LinesPage() {
     const [lines, setLines] = React.useState([]);
     const [stops, setStops] = React.useState([]);
+    const [stopNames, setStopNames] = React.useState([])
     const [showConfirmation, setShowConfirmation] = React.useState(false);
     const [newOutboundStops, setNewOutboundStops] = React.useState([]);
     const [newInboundStops, setNewInboundStops] = React.useState([]);
-    const stopNames = stops.map((stop) => stop.name);
 
     React.useEffect(() => {
         // get data from API
         const fetchData = async () => {
-            const responseLines = await fetch(baseURL + '/api/v1/lines');
-            const dataLines = await responseLines.json();
-            setLines(dataLines);
-
             const responseStops = await fetch(baseURL + '/api/v1/stops');
             const dataStops = await responseStops.json();
             setStops(dataStops);
+
+            const responseLines = await fetch(baseURL + '/api/v1/lines');
+            const dataLines = await responseLines.json();
+            setLines(dataLines);
         }
         fetchData();
+
+        setStopNames(stops.map((stop) => stop.name));
 
         const inp1 = document.getElementById("outboundInput");
         const inp2 = document.getElementById("inboundInput");
@@ -116,6 +118,11 @@ export default function LinesPage() {
         setNewInboundStops(newStops);
     }
 
+    const findStopName = (id) => {
+        const stop = stops.find((s) => s.id === id);
+        return stop.name;
+    }
+
 
     return (
         <div>
@@ -153,7 +160,7 @@ export default function LinesPage() {
                         <h3 className="font-bold text-lg">Outbound stops</h3>
                         <div className="flex items-center gap-2">
                             <div className="input input-bordered flex items-center gap-2 autocomplete">
-                                <input id="outboundInput" type="text" className="grow" placeholder="Stop name" required/>
+                                <input autoComplete="off" id="outboundInput" type="text" className="grow" placeholder="Stop name" required/>
                             </div>
                             <button className="btn btn-neutral" onClick={addOutboundStop}>Add</button>
                         </div>
@@ -161,7 +168,6 @@ export default function LinesPage() {
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>Order</th>
                                 <th>Stop ID</th>
                                 <th>Stop Name</th>
                                 <th>Location</th>
@@ -172,7 +178,7 @@ export default function LinesPage() {
                             {(newOutboundStops).map((stop) => {
                                 return (
                                     <tr key={newOutboundStops.indexOf(stop)}>
-                                        <td>{newOutboundStops.indexOf(stop) + 1}</td>
+                                        <td>{stop['id']}</td>
                                         <td>{stop['name']}</td>
                                         <td>{stop['location']}</td>
                                         <td>
@@ -191,7 +197,7 @@ export default function LinesPage() {
                         <h3 className="font-bold text-lg">Inbound stops</h3>
                         <div className="flex items-center gap-2">
                             <div className="input input-bordered flex items-center gap-2 autocomplete">
-                                <input id="inboundInput" type="text" className="grow" placeholder="Stop name" required/>
+                                <input autoComplete="off" id="inboundInput" type="text" className="grow" placeholder="Stop name" required/>
                             </div>
                             <button className="btn btn-neutral" onClick={addInboundStop}>Add</button>
                         </div>
@@ -199,7 +205,6 @@ export default function LinesPage() {
                         <table className="table">
                             <thead>
                             <tr>
-                                <th>Order</th>
                                 <th>Stop ID</th>
                                 <th>Stop Name</th>
                                 <th>Location</th>
@@ -255,8 +260,8 @@ export default function LinesPage() {
                     <tr>
                         <th>number</th>
                         <th>designation</th>
-                        <th>idFirstStop</th>
-                        <th>idLastStop</th>
+                        <th>First Stop</th>
+                        <th>Last Stop</th>
                         <th>color</th>
                     </tr>
                     </thead>
@@ -267,8 +272,8 @@ export default function LinesPage() {
                             <tr key={line.number}>
                                 <th>{line.number}</th>
                                 <td>{line.designation}</td>
-                                <td>{line.idFirstStop}</td>
-                                <td>{line.idLastStop}</td>
+                                <td>[{line.idFirstStop}] {findStopName(line.idFirstStop)}</td>
+                                <td>[{line.idLastStop}] {findStopName(line.idLastStop)}</td>
                                 <td>{line.color}</td>
                             </tr>
                         );
