@@ -1,6 +1,7 @@
 import React from 'react';
 import { baseURL } from './../consts/config.js';
 import { autocomplete } from './../consts/autoComplete.js';
+import '../../styles/autocomplete.css';
 
 export default function LinesPage() {
     const [lines, setLines] = React.useState([]);
@@ -20,15 +21,21 @@ export default function LinesPage() {
             const responseLines = await fetch(baseURL + '/api/v1/lines');
             const dataLines = await responseLines.json();
             setLines(dataLines);
+
+            return [dataStops, dataLines];
         }
-        fetchData();
+        fetchData().then((data) => {
+            const dataStops = data[0];
+            const dataLines = data[1];
+            console.log("stops: ", dataStops);
+            console.log("lines: ", dataLines);
+            const stopNames = dataStops.map((stop) => stop.name);
+            console.log("stopNames: ", stopNames);
+            autocomplete(outboundInput, stopNames);
+            autocomplete(inboundInput, stopNames);
+        });
 
-        setStopNames(stops.map((stop) => stop.name));
-
-        const inp1 = document.getElementById("outboundInput");
-        const inp2 = document.getElementById("inboundInput");
-        autocomplete(inp1, stopNames);
-        autocomplete(inp2, stopNames);
+        
     }, []);
 
     const addLine = async (e) => {
