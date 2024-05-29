@@ -44,8 +44,6 @@ export default function StopsPage() {
         });
 
         if (response.status === 201) {
-            const newStop = await response.json();
-            setStops([...stops, newStop]);
             document.getElementById('addStop_modal').close();
             document.getElementById('confirmation_modal').showModal();
 
