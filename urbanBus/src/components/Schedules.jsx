@@ -216,7 +216,7 @@ export default function Schedules() {
 					<div className="flex justify-center text-sm font-light mb-5">choose a line</div>
 					<div className="flex flex-wrap justify-center gap-3">
 						{(lines).map((line) => (
-							<button key={line.number} onClick={() => {lineSelection(line.name)}} className="btn btn-circle w-14 h-14 text-white"
+							<button key={line.number} onClick={() => {lineSelection(line)}} className="btn btn-circle w-14 h-14 text-white"
 								style={{backgroundColor: line.color}}>{line.name}</button>
 						))}
 					</div>

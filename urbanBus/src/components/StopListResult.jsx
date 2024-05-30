@@ -19,10 +19,17 @@ export default function StopListResult(props) {
 	}
 
 	const fetchDataNextBus = async (stop) => {
-		const response = await fetch(baseURL + '/api/v1/nextBuses?stop='+stop);
+		const response = await fetch(baseURL + '/api/v1/nextBuses?stop=' + stop);
 		const data = await response.json();
 		console.log(data);
 		setJourneys(data);
+	}
+
+	const fetchDataLine = async(l) => {
+		const response = await fetch(baseURL + '/api/v1/journeys?line=' + l.number);
+		const data = await response.json();
+		console.log(data);
+		setJourneys(data)
 	}
 
 	useEffect(() => {
@@ -30,10 +37,14 @@ export default function StopListResult(props) {
 		setLastStop(props.lastStop);
 		setLine(props.line);
 
+		console.log(props.line);
+
 		if (props.firstStop && props.lastStop)
 			fetchDataFLS(props.firstStop, props.lastStop);
 		else if (props.firstStop) {
 			fetchDataNextBus(props.firstStop.id);
+		} else if (props.line) {
+			fetchDataLine(props.line);
 		}
 
 	}, [props.firstStop, props.lastStop, props.line]);
@@ -50,16 +61,28 @@ export default function StopListResult(props) {
 
 	return (
 		<div>
-
 			<ul className="w-full p-0">
 				{(journeys).sort((a, b) => {
 					return a.startTime > b.startTime ? 1 : -1;
 				}).map((journey) => {
-					return (
-						<li key={journey.id} onClick={() => { handleClick(journey) }} onMouseDown={() => { handleFocus(journey) }}>
-							<JourneyCard line={journey.line.designation} startTime={journey.firstSelectedStop.time} delay={journey.delay} endTime={journey.lastSelectedStop.time} departure={journey.firstSelectedStop.name} destination={journey.lastSelectedStop.name} />
-						</li>
-					);
+					if (firstStop && lastStop)
+						return (
+							<li key={journey.id} onClick={() => { handleClick(journey) }} onMouseDown={() => { handleFocus(journey) }}>
+								<JourneyCard line={journey.line.designation} startTime={journey.firstSelectedStop.time} delay={journey.delay} endTime={journey.lastSelectedStop.time} departure={journey.firstSelectedStop.name} destination={journey.lastSelectedStop.name} />
+							</li>
+						);
+					else if (firstStop)
+						return (
+							<li key={journey.id} onClick={() => { handleClick(journey) }} onMouseDown={() => { handleFocus(journey) }}>
+								<JourneyCard line={journey.line.designation} startTime={journey.firstSelectedStop.time} delay={journey.delay} endTime={journey.lastSelectedStop.time} departure={journey.firstSelectedStop.name} destination={journey.lastSelectedStop.name} />
+							</li>
+						);
+					else if (line)
+						return (
+							<li key={journey.id} onClick={() => { handleClick(journey) }} onMouseDown={() => { handleFocus(journey) }}>
+								<JourneyCard line={journey.line.designation} startTime={journey.firstSelectedStop.time} delay={journey.delay} endTime={journey.lastSelectedStop.time} departure={journey.firstSelectedStop.name} destination={journey.lastSelectedStop.name} />
+							</li>
+						);
 				})}
 			</ul>
 		</div>
