@@ -1,29 +1,131 @@
 import React from "react";
 import {baseURL} from "../consts/config.js";
+import {autocomplete} from "../consts/autoComplete.js";
+import '../../styles/autocomplete.css';
 
 export default function JourneysPage() {
     const [journeys, setJourneys] = React.useState([]);
+    const [lines, setLines] = React.useState([]);
+    const [stops, setStops] = React.useState([]);
     const [exceptionStops, setExceptionStops] = React.useState([]);
 
     React.useEffect(() => {
         // get data from API
-        fetchData();
+        fetchData().then((data) => {
+            const dataStops = data[2];
+            const stopNames = dataStops.map((stop) => stop.name);
+            console.log("stopNames: ", stopNames);
+            const inp = document.getElementById("exceptionInput");
+            autocomplete(inp, stopNames);
+        });
     }, []);
 
     const fetchData = async () => {
-        const response = await fetch(baseURL + '/api/v1/journeys');
-        const data = await response.json();
-        console.log(data);
-        setJourneys(data);
+        const responseJourneys = await fetch(baseURL + '/api/v1/journeys');
+        const dataJourneys = await responseJourneys.json();
+        setJourneys(dataJourneys);
+
+        const responseLines = await fetch(baseURL + '/api/v1/lines');
+        const dataLines = await responseLines.json();
+        setLines(dataLines);
+
+        const responseStops = await fetch(baseURL + '/api/v1/stops');
+        const dataStops = await responseStops.json();
+        setStops(dataStops);
+
+        return [dataJourneys, dataLines, dataStops];
     }
 
     const addJourney = async (e) => {
+        e.preventDefault();
+        const lineNumber = document.getElementById('lineInput').value;
+        console.log("lineNumber: ", lineNumber);
+        console.log("exceptionStops: ", exceptionStops);
+        console.log("lines: ", lines);
+        const line = lines.find((l) => l.number == lineNumber);
+        console.log("line: ", line);
+        const firstStop = line.firstStop;
+        const lastStop = line.lastStop;
 
+        console.log(JSON.stringify({
+            line: line,
+            firstStop: firstStop,
+            lastStop: lastStop,
+            exceptions: exceptionStops
+        }));
+
+        const response = await fetch(baseURL + '/api/v1/journeys/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                line: line,
+                firstStop: firstStop,
+                lastStop: lastStop,
+                exceptions: exceptionStops
+            })
+        });
+
+        if (response.status === 201) {
+            document.getElementById('addJourney_modal').close();
+            document.getElementById('confirmation_modal').showModal();
+
+            document.getElementById('lineInput').value = '';
+            document.getElementById('exceptionInput').value = '';
+
+            setExceptionStops([]);
+
+            fetchData();
+        } else {
+            alert('Error adding line');
+        }
     }
 
-    const addExceptions = async (e) => {
+    const addExceptionStop = async (e) => {
+        e.preventDefault();
+        const stopName = document.getElementById('exceptionInput').value;
+        const id = stops.find((s) => s.name === stopName).id;
+        let time = "00:00:00";
 
+        setExceptionStops([...exceptionStops, {"stop": id, "time": time}]);
+        console.log(exceptionStops)
+        document.getElementById('exceptionInput').value = '';
     }
+
+    const removeExceptionStop = (e) => {
+        e.preventDefault();
+        const stopId = Number(e.target.closest('tr').children[0].textContent);
+
+        const newStops = exceptionStops.filter((s) => s.stop !== stopId);
+        setExceptionStops(newStops);
+    }
+
+    const changeTimeException = (e) => {
+        const stopId = Number(e.target.closest('tr').children[0].textContent);
+        const time = Number(e.target.value);
+        let hours = Math.floor(time / 60);
+        let minutes = Math.floor(time % 60);
+        let seconds = Math.floor(time % 1 * 60);
+        if (hours < 10) {
+            hours = `0${hours}`;
+        }
+        if (minutes < 10) {
+            minutes = `0${minutes}`;
+        }
+        if (seconds < 10) {
+            seconds = `0${seconds}`;
+        }
+        const newStops = exceptionStops.map((s) => {
+            if (s.stop === stopId) {
+                s.time = `${hours}:${minutes}:${seconds}`;
+            }
+            return s;
+        });
+        setExceptionStops(newStops);
+        console.log(exceptionStops);
+    }
+
 
     return (
         <div>
@@ -34,7 +136,7 @@ export default function JourneysPage() {
                 </div>
 
                 <button className="btn btn-neutral ml-auto mr-8"
-                        onClick={() => document.getElementById('addLine_modal').showModal()}>
+                        onClick={() => document.getElementById('addJourney_modal').showModal()}>
                     Add journey
                 </button>
             </div>
@@ -66,7 +168,7 @@ export default function JourneysPage() {
                 </table>
 
 
-                <dialog id="addLine_modal" className="modal">
+                <dialog id="addJourney_modal" className="modal">
                     <div className="modal-box w-11/12 max-w-2xl">
                         <form method="dialog">
                             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -75,23 +177,18 @@ export default function JourneysPage() {
                         <h3 className="font-bold text-lg mb-4">Add journey</h3>
                         <form className="flex flex-col gap-4">
                             <label className="input input-bordered flex items-center gap-2">
-                                Number
-                                <input id="number" type="number" className="grow" placeholder="1" required/>
-                            </label>
-                            <label className="input input-bordered flex items-center gap-2">
-                                Color
-                                <input id="color" type="text" className="grow"
-                                       placeholder="#RRGGBB" required/>
+                                Line
+                                <input id="lineInput" type="number" className="grow" placeholder="1" required/>
                             </label>
 
                             {/* Exception stops */}
                             <h3 className="font-bold text-lg">Exception stops</h3>
                             <div className="flex items-center gap-2">
                                 <div className="input input-bordered flex items-center gap-2 autocomplete">
-                                    <input autoComplete="off" id="outboundInput" type="text" className="grow"
+                                    <input autoComplete="off" id="exceptionInput" type="text" className="grow"
                                            placeholder="Stop name" required/>
                                 </div>
-                                <button className="btn btn-neutral" onClick={addExceptions}>Add</button>
+                                <button className="btn btn-neutral" onClick={addExceptionStop}>Add</button>
                             </div>
 
                             <table className="table">
@@ -100,20 +197,26 @@ export default function JourneysPage() {
                                     <th>Stop ID</th>
                                     <th>Stop Name</th>
                                     <th>Location</th>
+                                    <th>Time Modifier</th>
                                     <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {(exceptionStops).map((stop, index) => {
-                                    let stopId = stop.id;
-                                    let stopName = stop.name;
-                                    let stopLocation = stop.location;
+                                {(exceptionStops).map((stopTime, index) => {
+                                    let stopId = stopTime.stop;
+                                    let stop = stops.find((s) => s.id === stopId);
 
                                     return (
-                                        <tr key={exceptionStops.indexOf(stop)}>
-                                            <td>{stopId}</td>
-                                            <td>{stopName}</td>
-                                            <td>{stopLocation}</td>
+                                        <tr key={exceptionStops.indexOf(stopTime)}>
+                                            <td>{stop.id}</td>
+                                            <td>{stop.name}</td>
+                                            <td>{stop.location}</td>
+                                            <td>
+                                                <div className="input input-bordered flex items-center gap-2">
+                                                    <input type="number" placeholder="0" className="w-16"
+                                                           onChange={changeTimeException}/>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <button className="btn btn-neutral btn-square"
                                                         onClick={removeExceptionStop}>X
@@ -136,8 +239,8 @@ export default function JourneysPage() {
 
                 <dialog id="confirmation_modal" className="modal">
                     <div className="modal-box">
-                        <h3 className="font-bold text-lg">Line Added!</h3>
-                        <p className="py-4">The line was successfully added.</p>
+                        <h3 className="font-bold text-lg">Journey Added!</h3>
+                        <p className="py-4">The journey was successfully added.</p>
                         <div className="modal-action">
                             <form method="dialog">
                                 {/* if there is a button in form, it will close the modal */}
