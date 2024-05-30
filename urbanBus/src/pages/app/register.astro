@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import LayoutMobile from "../../layouts/LayoutMobile.astro";
+import RegisterPage from '../../components/RegisterPage.jsx';
+---
+
+<LayoutMobile title="urbanBus">
+    <RegisterPage client:load />
+</LayoutMobile>
