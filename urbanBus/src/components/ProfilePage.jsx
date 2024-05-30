@@ -58,11 +58,6 @@ export default function ProfilePage() {
 
     const createTicket = async (e) => {
         e.preventDefault()
-        console.log('Creating ticket')
-        console.log(JSON.stringify({
-            type: document.getElementById("type").value,
-            zone: document.getElementById("zone").value,
-        }))
         const token = localStorage.getItem('token');
         const response = await fetch(baseURL + '/api/v1/tickets/create', {
             method: 'POST',
@@ -79,7 +74,10 @@ export default function ProfilePage() {
 
         if (response.status === 201) {
             alert('Ticket created successfully');
-            //fetchTicketsData(token);
+            closeCreatePassModal();
+            document.getElementById('type').value = 'Select Type';
+            document.getElementById('zone').value = 'Select Zone';
+            fetchTicketsData(token);
         }
         else {
             alert('Error creating ticket');
@@ -99,6 +97,11 @@ export default function ProfilePage() {
     function showCreatePassModal() {
         const modal = document.getElementById('CreatePassModal');
         modal.showModal();
+    }
+
+    function closeCreatePassModal() {
+        const modal = document.getElementById('CreatePassModal');
+        modal.close();
     }
 
     function handleLogOut() {
@@ -135,40 +138,40 @@ export default function ProfilePage() {
                     <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
+
+
+
                     {tickets.map((ticket, index) => (
-                        <>
-                            <div className="bg-neutral h-52 rounded-xl mt-4 w-full text-white">
-                                <div className="w-full h-full mx-2 my-2">
-                                    <div className="mt-4 flex flex-row">
-                                        <div className="btn btn-ghost text-xl justify-start mt-8 ml-4 basis-1/2">
-                                            urbanBus.
-                                        </div>
-                                        <div className="avatar placeholder justify-end basis-1/2 mr-10 mt-6">
+                        <div key={index} className="collapse collapse-arrow bg-base-200 my-4">
+                            <input type="radio" name="my-accordion-1"/>
+                            <div className="collapse-title text-xl font-medium">
+                                {ticket.id}
+                            </div>
+                            <div className="collapse-content">
+                                <div className="bg-neutral h-52 rounded-xl mt-4 w-full text-white">
+                                    <div className="w-full h-full mx-2 my-2">
+                                        <div className="mt-4 flex flex-row">
                                             <div
-                                                className="bg-gray-400 text-neutral-content rounded-full w-16 h-16">
-                                                    <span
-                                                        className="text-3xl">{userData.name ? userData.name[0] : ''}</span>
+                                                className="btn btn-ghost text-xl justify-start mt-8 ml-4 basis-1/2">
+                                                urbanBus.
+                                            </div>
+                                            <div className="avatar placeholder justify-end basis-1/2 mr-10 mt-6">
+                                                <div
+                                                    className="bg-gray-400 text-neutral-content rounded-full w-16 h-16">
+                                                <span
+                                                    className="text-3xl">{userData.name ? userData.name[0] : ''}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="flex flex-col pr-4 basis-full justify-items-center">
-                                        <h1 className="text-sm rounded-md bg-white font-bold text-neutral text-left w-11/12 mx-auto mt-6 pl-2">{userData.name}</h1>
-                                        <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">{ticket.id}</h1>
-                                        <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">{ticket.expiration === null ? 'trips ' + ticket.trips : 'val ' + ticket.expiration}</h1>
+                                        <div className="flex flex-col pr-4 basis-full justify-items-center">
+                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral text-left w-11/12 mx-auto mt-6 pl-2">{userData.name}</h1>
+                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">{ticket.id}</h1>
+                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">{ticket.expiration === null ? 'trips ' + ticket.trips : 'val ' + ticket.expiration}</h1>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="collapse bg-base-200 mt-2">
-                                <input type="checkbox"/>
-                                <div className="collapse-title text-md px-1 text-neutral font-bold text-center">
-                                    Show QR
-                                </div>
-                                <div className="collapse-content">
-                                    <img src="../public/qr.svg" className="h-36 w-36 mx-auto mt-4"/>
-                                </div>
-                            </div>
-                        </>
+                        </div>
                     ))}
                 </div>
                 <form method="dialog" className="modal-backdrop">
@@ -184,7 +187,6 @@ export default function ProfilePage() {
                     <p className="font-bold text-xl text-neutral">Create Pass</p>
                     <div className="modal-action flex flex-col">
                         <form className="flex flex-col gap-4">
-                            {/*Two selects for type of ticket and zone*/}
                             <div className="flex flex-row mb-8">
                                 <p className="text-md font-bold text-neutral basis-1/3 my-auto ml-6">Type:</p>
                                 <select id="type" className="select select-bordered text-base basis-2/3">
@@ -196,7 +198,7 @@ export default function ProfilePage() {
                             <div className="flex flex-row mb-8">
                                 <p className="text-md font-bold text-neutral basis-1/3 my-auto ml-6">Zone:</p>
                                 <select id="zone" className="select select-bordered text-base basis-2/3">
-                                    <option value="Select Type" disabled selected>Select Zone</option>
+                                    <option value="Select Zone" disabled selected>Select Zone</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                 </select>
@@ -224,12 +226,12 @@ export default function ProfilePage() {
                 </form>
             </dialog>
 
-            <div className="btn btn-neutral flex h-12 rounded-xl mt-2">
+            <button className="btn btn-neutral flex h-12 rounded-xl mt-2 w-full" onClick={handleLogOut}>
                 <div className="mx-auto flex">
                     <i className="fa-solid fa-arrow-right-from-bracket text-white my-auto"></i>
-                    <h1 className="text-md font-bold text-white ml-2 my-auto" onClick={handleLogOut}>Log Out</h1>
+                    <h1 className="text-md font-bold text-white ml-2 my-auto">Log Out</h1>
                 </div>
-            </div>
+            </button>
         </div>
     )
 }

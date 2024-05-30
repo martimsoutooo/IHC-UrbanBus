@@ -16,19 +16,19 @@ export default function Schedules() {
 	const [selectedLine, setSelectedLine] = useState('');
 
 	const [lines, setLines] = useState([
-	    {name: 'L1', color: "bg-[#00b8a1]/70", number: 1},
-	    {name: 'L2', color: 'bg-rose-500/50', number: 2},
-	    {name: 'L3', color: 'bg-amber-500/50', number: 3},
-	    {name: 'L4', color: 'bg-lime-500/50', number: 4},
-	    {name: 'L5', color: 'bg-emerald-500/50', number: 5},
-	    {name: 'L6', color: 'bg-cyan-500/50', number: 6},
-	    {name: 'L7', color: 'bg-violet-500/50', number: 7},
-	    {name: 'L8', color: 'bg-fuchsia-500/50', number: 8},
-	    {name: 'L9', color: 'bg-rose-500/50', number: 9},
-	    {name: 'L10', color: 'bg-amber-500/50', number: 10},
-	    {name: 'L11', color: 'bg-lime-500/50', number: 11},
-	    {name: 'AZUL', color: 'bg-blue-500/50', number: 12},
-	    {name: 'VERDE', color: 'bg-green-500/50', number: 13},
+	    {name: '', color: "bg-[#00b8a1]/70", number: 1},
+	    {name: '', color: 'bg-rose-500/50', number: 2},
+	    {name: '', color: 'bg-amber-500/50', number: 3},
+	    {name: '', color: 'bg-lime-500/50', number: 4},
+	    {name: '', color: 'bg-emerald-500/50', number: 5},
+	    {name: '', color: 'bg-cyan-500/50', number: 6},
+	    {name: '', color: 'bg-violet-500/50', number: 7},
+	    {name: '', color: 'bg-fuchsia-500/50', number: 8},
+	    {name: '', color: 'bg-rose-500/50', number: 9},
+	    {name: '', color: 'bg-amber-500/50', number: 10},
+	    {name: '', color: 'bg-lime-500/50', number: 11},
+	    {name: '', color: 'bg-blue-500/50', number: 12},
+	    {name: '', color: 'bg-green-500/50', number: 13},
 	])
 
 	useEffect(() => {

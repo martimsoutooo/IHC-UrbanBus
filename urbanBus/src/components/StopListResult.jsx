@@ -18,6 +18,13 @@ export default function StopListResult(props) {
 		setJourneys(data);
 	}
 
+	const fetchDataNextBus = async (stop) => {
+		const response = await fetch(baseURL + '/api/v1/nextBuses?stop='+stop);
+		const data = await response.json();
+		console.log(data);
+		setJourneys(data);
+	}
+
 	useEffect(() => {
 		setFirstStop(props.firstStop);
 		setLastStop(props.lastStop);
@@ -25,6 +32,9 @@ export default function StopListResult(props) {
 
 		if (props.firstStop && props.lastStop)
 			fetchDataFLS(props.firstStop, props.lastStop);
+		else if (props.firstStop) {
+			fetchDataNextBus(props.firstStop.id);
+		}
 
 	}, [props.firstStop, props.lastStop, props.line]);
 
