@@ -356,19 +356,6 @@ export default function LinesPage() {
                 </div>
             </dialog>
 
-            <dialog id="confirmation_modal" className="modal">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Line Added!</h3>
-                    <p className="py-4">The line was successfully added.</p>
-                    <div className="modal-action">
-                        <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn">OK</button>
-                        </form>
-                    </div>
-                </div>
-            </dialog>
-
             <style>{`
                 .containerTable {
                     height: 600px;
