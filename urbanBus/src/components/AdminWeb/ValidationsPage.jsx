@@ -42,15 +42,48 @@ export default function ValidationsPage() {
         document.getElementById('validationsModal').showModal();
     }
 
+    const makeValidation = async (event) => {
+        event.preventDefault();
+
+        const JIid = document.getElementById('JIid').value;
+        const ticketid = document.getElementById('ticketid').value;
+
+        const response = await fetch(baseURL + '/api/v1/journeyInstance/' + JIid + '/validate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ticketId: ticketid
+            })
+        });
+
+        if (response.ok) {
+            alert('Validation made successfully');
+            fetchData();
+        } else {
+            alert('Error making validation');
+        }
+
+        document.getElementById('addValidation_modal').close();
+    }
+
     return (
         <div>
             <h1 className="text-4xl font-bold">Validations</h1>
             <p className="text-xl">Here you can manage the validations</p>
 
-            <select className="select select-bordered w-full max-w-xs mt-10" onChange={switchTable}>
-                <option value="stops">Stops</option>
-                <option value="journeys">Journey Instances</option>
-            </select>
+            <div className="flex flex-row items-center">
+                <select className="select select-bordered w-full max-w-xs mt-10" onChange={switchTable}>
+                    <option value="stops">Stops</option>
+                    <option value="journeys">Journey Instances</option>
+                </select>
+
+                <button className="btn btn-neutral ml-auto mr-8"
+                        onClick={() => document.getElementById('addValidation_modal').showModal()}>
+                    Make Validation
+                </button>
+            </div>
 
             <div id="stopsTable" className="overflow-x-auto mt-4 containerTable table-pin-rows table-pin-cols">
                 <table className="table">
@@ -75,7 +108,8 @@ export default function ValidationsPage() {
                 </table>
             </div>
 
-            <div id="journeyInstancesTable" className="overflow-x-auto mt-4 containerTable table-pin-rows table-pin-cols hidden">
+            <div id="journeyInstancesTable"
+                 className="overflow-x-auto mt-4 containerTable table-pin-rows table-pin-cols hidden">
                 <table className="table">
                     <thead>
                     <tr>
@@ -94,7 +128,9 @@ export default function ValidationsPage() {
                             <td>{journeyInstance.journey.idLine}</td>
                             <td>{journeyInstance.dateTime.split('.')[0]}</td>
                             <td>
-                                <button className="btn btn-sm btn-neutral " onClick={openValidationModal(journeyInstance.id)}>View Validations</button>
+                                <button className="btn btn-sm btn-neutral "
+                                        onClick={openValidationModal(journeyInstance.id)}>View Validations
+                                </button>
                             </td>
                         </tr>
                     ))}
@@ -111,11 +147,11 @@ export default function ValidationsPage() {
                     <h1 className="text-2xl font-bold">Validations</h1>
                     <table className="table">
                         <thead>
-                            <tr>
-                                <td>Ticket ID</td>
-                                <td>Stop ID</td>
-                                <td>DateTime</td>
-                            </tr>
+                        <tr>
+                            <td>Ticket ID</td>
+                            <td>Stop ID</td>
+                            <td>DateTime</td>
+                        </tr>
                         </thead>
                         <tbody>
                         {journeyInstancesValidations.map((validation, index) => (
@@ -130,6 +166,30 @@ export default function ValidationsPage() {
                 </div>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
+                </form>
+            </dialog>
+
+            <dialog id="addValidation_modal" className="modal">
+                <div className="modal-box">
+                    <form method="dialog">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+
+                    <h1 className="text-2xl font-bold mb-4">Make Validation</h1>
+                    <form className="flex flex-col gap-4">
+                        <label className="input input-bordered flex items-center gap-2">
+                            Journey Instance ID
+                            <input id="JIid" type="number" className="grow" placeholder="1" required/>
+                        </label>
+                        <label className="input input-bordered flex items-center gap-2">
+                            Ticket ID
+                            <input id="ticketid" type="number" className="grow" placeholder="10000" required/>
+                        </label>
+                        <button type="submit" className="btn btn-neutral" onClick={makeValidation}>Validate</button>
+                    </form>
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                <button>close</button>
                 </form>
             </dialog>
             <style>{`
