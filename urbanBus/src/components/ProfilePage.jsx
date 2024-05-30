@@ -56,7 +56,8 @@ export default function ProfilePage() {
         }
     }
 
-    const createTicket = async () => {
+    const createTicket = async (e) => {
+        e.preventDefault()
         console.log('Creating ticket')
         console.log(JSON.stringify({
             type: document.getElementById("type").value,
