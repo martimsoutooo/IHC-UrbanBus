@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
+import { baseURL } from './consts/config.js';
 
-export default function ModalContent() {
+export default function ModalRenew() {
     const items = [
         { name: '30 days', price: '11€' },
         { name: '90 days', price: '30€' },
@@ -62,10 +63,32 @@ export default function ModalContent() {
         }
         setAskedInfo(input);
 
+        createTicket();
+
         const payment = document.getElementById('Payment');
         const confirm = document.getElementById('Confirm');
         payment.classList.add('hidden');
         confirm.classList.remove('hidden');
+    }
+
+    const createTicket = async () => {
+        const response = await fetch(baseURL + '/api/v1/tickets/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: selectedItem.name,
+                price: selectedItem.price,
+                info: askedInfo
+            })
+        });
+
+        if (response.status === 201) {
+            alert('Ticket created successfully');
+        } else {
+            alert('Error creating ticket');
+        }
     }
 
     return (

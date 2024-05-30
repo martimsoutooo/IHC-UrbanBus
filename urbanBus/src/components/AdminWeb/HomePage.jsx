@@ -88,7 +88,7 @@ export default function HomePage({setCurrentPage}) {
             </div>
             <style>{`
                 .cardsContainer {
-                    height: 500px
+                    height: 550px
                 }
                 `}
             </style>

@@ -1,16 +1,18 @@
 import {baseURL} from "./consts/config.js";
+import React from "react";
 
 export default function LoginPage() {
+
+    React.useEffect(() => {
+        // Change the opacity of the svg when the input is focused
+        changeSvgOpacity();
+    }, []);
+
     const handleLogin = async (e) => {
         e.preventDefault();
         console.log("Login");
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-
-        console.log(JSON.stringify({
-            email: email,
-            password: password
-        }));
 
         const response = await fetch(baseURL + '/api/v1/auth', {
             method: 'POST',
@@ -23,15 +25,19 @@ export default function LoginPage() {
             })
         });
 
-        if (response.status === 201) {
-
+        console.log(response.status)
+        if (response.status === 201 || response.status === 200) {
+            alert('Logged in successfully');
+            // store the token in the local storage
+            const data = await response.json();
+            localStorage.setItem('token', data.token);
+            window.location.href = '/app';
         } else {
             alert('Error logging in');
         }
     }
 
 
-    // Change the opacity of the svg when the input is focused
     function changeSvgOpacity() {
         const svg = document.querySelectorAll('label');
         svg.forEach((element) => {
@@ -97,12 +103,6 @@ export default function LoginPage() {
                     </div>
                 </div>
 
-                <div className="form-control mt-auto">
-                    <label className="label cursor-pointer">
-                        <span className="label-text">Remember me</span>
-                        <input type="checkbox" checked="checked" className="checkbox"/>
-                    </label>
-                </div>
                 <button className="btn btn-neutral w-full" onClick={handleLogin}>Login</button>
             </form>
         </div>
