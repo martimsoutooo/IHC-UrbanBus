@@ -12,17 +12,6 @@ export default function LinesPage() {
 
     React.useEffect(() => {
         // get data from API
-        const fetchData = async () => {
-            const responseStops = await fetch(baseURL + '/api/v1/stops');
-            const dataStops = await responseStops.json();
-            setStops(dataStops);
-
-            const responseLines = await fetch(baseURL + '/api/v1/lines');
-            const dataLines = await responseLines.json();
-            setLines(dataLines);
-
-            return [dataStops, dataLines];
-        }
         fetchData().then((data) => {
             const dataStops = data[0];
             const dataLines = data[1];
@@ -33,9 +22,19 @@ export default function LinesPage() {
             autocomplete(outboundInput, stopNames);
             autocomplete(inboundInput, stopNames);
         });
-
-        
     }, []);
+
+    const fetchData = async () => {
+        const responseStops = await fetch(baseURL + '/api/v1/stops');
+        const dataStops = await responseStops.json();
+        setStops(dataStops);
+
+        const responseLines = await fetch(baseURL + '/api/v1/lines');
+        const dataLines = await responseLines.json();
+        setLines(dataLines);
+
+        return [dataStops, dataLines];
+    }
 
     const addLine = async (e) => {
         e.preventDefault();
@@ -78,6 +77,7 @@ export default function LinesPage() {
             setNewInboundStops([]);
 
             setShowConfirmation(true); // Show the confirmation modal
+            fetchData();
         } else {
             alert('Error adding line');
         }
@@ -189,7 +189,6 @@ export default function LinesPage() {
 
             <div className="overflow-x-auto mt-12 containerTable table-pin-rows table-pin-cols">
                 <table className="table">
-                    {/* head */}
                     <thead>
                     <tr>
                         <th>Number</th>
@@ -199,7 +198,6 @@ export default function LinesPage() {
                         <th>color</th>
                     </tr>
                     </thead>
-                    {/* body */}
                     <tbody>
                     {(lines).map((line) => {
                         return (

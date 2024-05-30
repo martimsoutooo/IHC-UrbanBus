@@ -4,6 +4,7 @@ import LinesPage from './LinesPage.jsx';
 import TicketsPage from './TicketsPage.jsx';
 import ClientsPage from './ClientsPage.jsx';
 import ValidationsPage from './ValidationsPage.jsx';
+import JourneysPage from './JourneysPage.jsx';
 
 
 export default function SubPageLeft({ currentPage, setCurrentPage }) {
@@ -16,6 +17,7 @@ export default function SubPageLeft({ currentPage, setCurrentPage }) {
             {currentPage === 'Tickets' && <TicketsPage />}
             {currentPage === 'Clients' && <ClientsPage />}
             {currentPage === 'Validations' && <ValidationsPage />}
+            {currentPage === 'Journeys' && <JourneysPage />}
         </div>
     )
 }

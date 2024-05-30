@@ -7,14 +7,14 @@ export default function StopsPage() {
 
     React.useEffect(() => {
 		// get data from API
-		const fetchData = async () => {
-			const response = await fetch(baseURL + '/api/v1/stops');
-			const data = await response.json();
-			setStops(data);
-		}
-
 		fetchData();
 	}, []);
+
+    const fetchData = async () => {
+        const response = await fetch(baseURL + '/api/v1/stops');
+        const data = await response.json();
+        setStops(data);
+    }
 
     const addStop = async (e) => {
         e.preventDefault();
@@ -53,6 +53,7 @@ export default function StopsPage() {
             document.getElementById('longitude').value = '';
 
             setShowConfirmation(true); // Show the confirmation modal
+            fetchData(); // Refresh the stops list
         } else {
             alert('Error adding stop');
         }
