@@ -17,7 +17,7 @@ export default function HomePage({setCurrentPage}) {
                         </svg>
                         <div className="my-auto">
                             <h1 className="card-title text-4xl">Stops</h1>
-                            <p>X Stops available</p>
+                            <p></p>
                         </div>
                     </div>
                 </button>
@@ -31,7 +31,7 @@ export default function HomePage({setCurrentPage}) {
                         </svg>
                         <div className="my-auto">
                             <h1 className="card-title text-4xl">Lines</h1>
-                            <p>X Lines available</p>
+                            <p></p>
                         </div>
                     </div>
                 </button>
@@ -45,7 +45,7 @@ export default function HomePage({setCurrentPage}) {
                         </svg>
                         <div className="my-auto">
                             <h1 className="card-title text-4xl">Tickets</h1>
-                            <p>X Tickets available</p>
+                            <p></p>
                         </div>
                     </div>
                 </button>
@@ -59,7 +59,7 @@ export default function HomePage({setCurrentPage}) {
                         </svg>
                         <div className="my-auto">
                             <h1 className="card-title text-4xl">Clients</h1>
-                            <p>X Clients Registered</p>
+                            <p></p>
                         </div>
                     </div>
                 </button>
