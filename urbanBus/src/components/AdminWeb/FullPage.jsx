@@ -10,7 +10,7 @@ export default function FullPage() {
         <div>
             <Nav setCurrentPage={setCurrentPage}/>
 
-            <div className="flex flex-row h-full px-6 pt-16">
+            <div className="flex flex-row h-full pt-16 mr-6">
                 <SubPageLeft currentPage={currentPage} setCurrentPage={setCurrentPage}/>
 
                 <div className="mockup-phone min-w-fit h-fit">
