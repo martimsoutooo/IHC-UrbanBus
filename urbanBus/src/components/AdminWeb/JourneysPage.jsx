@@ -39,19 +39,15 @@ export default function JourneysPage() {
     const addJourney = async (e) => {
         e.preventDefault();
         const lineNumber = document.getElementById('lineInput').value;
-        console.log("lineNumber: ", lineNumber);
-        console.log("exceptionStops: ", exceptionStops);
-        console.log("lines: ", lines);
         const line = lines.find((l) => l.number == lineNumber);
-        console.log("line: ", line);
-        const firstStop = line.firstStop;
-        const lastStop = line.lastStop;
+        const startTime = "00:00:00";
+        const outbound = true;
 
         console.log(JSON.stringify({
             line: line,
-            firstStop: firstStop,
-            lastStop: lastStop,
-            exceptions: exceptionStops
+            exceptions: exceptionStops,
+            startTime: startTime,
+            outbound: outbound,
         }));
 
         const response = await fetch(baseURL + '/api/v1/journeys/create', {
@@ -61,9 +57,9 @@ export default function JourneysPage() {
             },
             body: JSON.stringify({
                 line: line,
-                firstStop: firstStop,
-                lastStop: lastStop,
-                exceptions: exceptionStops
+                exceptions: exceptionStops,
+                startTime: startTime,
+                outbound: outbound,
             })
         });
 
