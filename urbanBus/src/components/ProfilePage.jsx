@@ -127,46 +127,56 @@ export default function ProfilePage() {
                     </div>
                 </div>
             </div>
+
             <button className="btn btn-neutral rounded-xl mt-2 w-full" onClick={showMyPassModal}><i
                 className="fa-solid fa-ticket"></i>My Passes
             </button>
-            <button className="btn btn-neutral rounded-xl mt-2 w-full" onClick={showCreatePassModal}><i
-                className="fa-solid fa-ticket"></i>Create Pass
+            <button className="btn btn-neutral rounded-xl mt-2 w-full" onClick={showCreatePassModal}>
+                <i className="fa-solid fa-circle-plus"></i>Create Pass
             </button>
+            <div className="btn btn-neutral flex h-12 rounded-xl mt-2 " onClick={showRenewModal}>
+                <div className="mx-auto flex">
+                    <i className="fa-solid fa-credit-card text-white my-auto"></i>
+                    <h1 className="text-md font-bold text-white ml-2 my-auto">Renew Pass</h1>
+                </div>
+            </div>
+            <button className="btn btn-neutral flex h-12 rounded-xl mt-2 w-full" onClick={handleLogOut}>
+                <div className="mx-auto flex">
+                    <i className="fa-solid fa-arrow-right-from-bracket text-white my-auto"></i>
+                    <h1 className="text-md font-bold text-white ml-2 my-auto">Log Out</h1>
+                </div>
+            </button>
+
+
             <dialog id="MyPassModal" className="modal">
                 <div className="modal-box">
                     <form method="dialog">
                         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
 
-
-
                     {tickets.map((ticket, index) => (
                         <div key={index} className="collapse collapse-arrow bg-base-200 my-4">
                             <input type="radio" name="my-accordion-1"/>
                             <div className="collapse-title text-xl font-medium">
-                                {ticket.id}
+                                {ticket.id} - {ticket.expiration === null ? 'Trips' : 'Subscription'} Z{ticket.zone}
                             </div>
                             <div className="collapse-content">
-                                <div className="bg-neutral h-52 rounded-xl mt-4 w-full text-white">
-                                    <div className="w-full h-full mx-2 my-2">
+                                <div className="bg-neutral rounded-xl mt-4 w-full text-white">
+                                    <div className="w-full h-full mx-2 pb-2">
                                         <div className="mt-4 flex flex-row">
-                                            <div
-                                                className="btn btn-ghost text-xl justify-start mt-8 ml-4 basis-1/2">
+                                            <div className="btn btn-ghost text-xl justify-start mt-8 ml-4 basis-1/2">
                                                 urbanBus.
                                             </div>
                                             <div className="avatar placeholder justify-end basis-1/2 mr-10 mt-6">
-                                                <div
-                                                    className="bg-gray-400 text-neutral-content rounded-full w-16 h-16">
-                                                <span
-                                                    className="text-3xl">{userData.name ? userData.name[0] : ''}</span>
+                                                <div className="bg-gray-400 text-neutral-content rounded-full w-16 h-16">
+                                                    <span className="text-3xl">{userData.name ? userData.name[0] : ''}</span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="flex flex-col pr-4 basis-full justify-items-center">
-                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral text-left w-11/12 mx-auto mt-6 pl-2">{userData.name}</h1>
-                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">{ticket.id}</h1>
-                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">{ticket.expiration === null ? 'trips ' + ticket.trips : 'val ' + ticket.expiration}</h1>
+                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral text-left w-11/12 mx-auto mt-6 pl-2">Name {userData.name}</h1>
+                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">ID {ticket.id}</h1>
+                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">{ticket.expiration === null ? 'Trips ' + ticket.trips : 'Val ' + ticket.expiration}</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -213,25 +223,14 @@ export default function ProfilePage() {
                 </form>
             </dialog>
 
-            <div className="btn btn-neutral flex h-12 rounded-xl mt-2 " onClick={showRenewModal}>
-                <div className="mx-auto flex">
-                    <i className="fa-solid fa-credit-card text-white my-auto"></i>
-                    <h1 className="text-md font-bold text-white ml-2 my-auto">Renew Pass</h1>
-                </div>
-            </div>
             <dialog id="RenewModal" className="modal">
-                    <ModalRenew/>
+                <ModalRenew/>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
                 </form>
             </dialog>
 
-            <button className="btn btn-neutral flex h-12 rounded-xl mt-2 w-full" onClick={handleLogOut}>
-                <div className="mx-auto flex">
-                    <i className="fa-solid fa-arrow-right-from-bracket text-white my-auto"></i>
-                    <h1 className="text-md font-bold text-white ml-2 my-auto">Log Out</h1>
-                </div>
-            </button>
+
         </div>
     )
 }
