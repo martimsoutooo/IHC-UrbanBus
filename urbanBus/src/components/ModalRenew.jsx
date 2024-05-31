@@ -1,21 +1,51 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { baseURL } from './consts/config.js';
 
 export default function ModalRenew() {
-    const items = [
-        { name: '30 days', price: '11€' },
-        { name: '90 days', price: '30€' },
-        { name: '365 days', price: '100€' }
-    ];
+    const [items, setItems] = useState([]);
+    const [selectedItem, setSelectedItem] = useState(items[0]);
+    const [tickets, setTickets] = useState([]);
+    const [ticket, setTicket] = useState({});
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        fetchTicketsData(token);
+        fetchItemsData();
+    });
+
+    const fetchTicketsData = async (token) => {
+        const response = await fetch(baseURL + '/api/v1/myTickets', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": token
+            }
+        });
+
+        if (response.status === 200) {
+            const data = await response.json();
+            console.log(data);
+            setTickets(data);
+        }
+        else {
+            alert('Error fetching tickets data');
+        }
+    }
+
+    const fetchItemsData = async () => {
+        const response = await fetch(baseURL + '/api/v1/prices');
+        const data = await response.json();
+        console.log(data);
+        setItems(data);
+    }
 
     const handleRenovation = (e) => {
         setSelectedItem(items.find(item => item.name === e.target.value));
     }
 
-    const [selectedItem, setSelectedItem] = useState(items[0]);
 
-    const handlePaymentMethod = (e) => {
+    /*const handlePaymentMethod = (e) => {
 		const mbway = document.getElementById('mbway');
 		const visa = document.getElementById('visa');
 		const paypal = document.getElementById('paypal');
@@ -41,11 +71,11 @@ export default function ModalRenew() {
 
     const [infoType, setInfoType] = useState("Phone");
     const [askedInfo, setAskedInfo] = useState("987654321");
-    const [choosenPaymentMethod, setChoosenPaymentMethod] = useState("MBway");
+    const [choosenPaymentMethod, setChoosenPaymentMethod] = useState("MBway");*/
 
     const handlePay = () => {
         // verify if the input is valid
-        let input = '';
+        /*let input = '';
         switch (choosenPaymentMethod) {
             case 'MBway':
                 input = document.getElementById('mbwayInput').value;
@@ -63,31 +93,30 @@ export default function ModalRenew() {
         }
         setAskedInfo(input);
 
-        createTicket();
-
         const payment = document.getElementById('Payment');
         const confirm = document.getElementById('Confirm');
         payment.classList.add('hidden');
-        confirm.classList.remove('hidden');
+        confirm.classList.remove('hidden');*/
+
     }
 
-    const createTicket = async () => {
-        const response = await fetch(baseURL + '/api/v1/tickets/create', {
-            method: 'POST',
+    const chargeTicket = async () => {
+        // fetch ticket
+        const token = localStorage.getItem('token');
+        const item = document.getElementById('itemSelect').value;
+        const response = await fetch(baseURL + '/api/v1/ticket' + ticket.id + '/charge', {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                item: item
             },
-            body: JSON.stringify({
-                name: selectedItem.name,
-                price: selectedItem.price,
-                info: askedInfo
-            })
         });
 
-        if (response.status === 201) {
-            alert('Ticket created successfully');
+        if (response.ok) {
+            alert('Ticket bought successfully');
+            fetchData();
         } else {
-            alert('Error creating ticket');
+            alert('Error buying ticket');
         }
     }
 
@@ -103,25 +132,37 @@ export default function ModalRenew() {
                     <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                 </form>
                 <p className="font-bold text-xl text-neutral">Payment</p>
-            
+
                 <div className="modal-action flex flex-col">
                     <div className='flex flex-row mb-8'>
-                        <p className="text-md font-bold text-neutral basis-1/3 my-auto ml-6">Renovation:</p>
-                        <select className="select select-bordered text-base basis-2/3" onChange={handleRenovation} name="" id="">
-                            {items.map((item, index) => (
-                                <option key={index} value={item.name}>{item.name} - {item.price}</option>
+                        <p className="text-md font-bold text-neutral basis-1/3 my-auto ml-1">Ticket:</p>
+                        <select className="select select-bordered text-base basis-2/3"
+                                name="" id="ticketSelect">
+                            {tickets.map((ticket, index) => (
+                                <option key={index} value={ticket.id}>{ticket.id} - {(ticket.expiration === null && ticket.trips === null) || (ticket.expiration !== null && ticket.trips === null) ? 'Subscription' : 'Trips'}</option>
                             ))}
                         </select>
                     </div>
 
-                    <select className="select select-bordered text-lg" onChange={handlePaymentMethod}>
-                        <option value="Select Payment Method" disabled selected>Select Payment Method</option>
-                        <option value="MBway">MB Way</option>
-                        <option value="Visa">Visa</option>
-                        <option value="Paypal">Paypal</option>
-                    </select>
-                    
-                    <div>
+                    <div className='flex flex-row mb-8'>
+                        <p className="text-md font-bold text-neutral basis-1/3 my-auto">Renovation:</p>
+                        <select className="select select-bordered text-base basis-2/3" id="itemSelect" onChange={handleRenovation}
+                                name="" id="">
+                            {items.map((item, index) => {
+                                if (item.trips !== null) {
+                                    return (
+                                        <option key={index} value={item.id}>{item.trips} Trips - {item.price}</option>
+                                    )
+                                } else {
+                                    return (
+                                        <option key={index} value={item.id}>{item.days} Days - {item.price}</option>
+                                    )
+                                }
+                            })}
+                        </select>
+                    </div>
+
+                    {/*<div>
                         <div id="mbway" className="hidden">
                             <label className="input input-bordered flex items-center gap-2 mt-2">
                                 Phone
@@ -142,30 +183,11 @@ export default function ModalRenew() {
                                 <input id="paypalInput" type="text" className="grow" pattern="[a-z]+@[a-z]+.[a-z]+" placeholder="urbanBus@bus.com" />
                             </label>
                         </div>
-                    </div>
-                    
-                    <button className="btn btn-neutral mt-4" onClick={handlePay}>Pay</button>
+                    </div>*/}
+
+                    <button className="btn btn-neutral mt-4" onClick={handleRenovation}>Pay</button>
                 </div>
             </div>
-
-
-            <div id='Confirm' className='hidden'>
-                <p className="font-bold text-xl text-neutral">Confirm Payment</p>
-
-                <div className="modal-action flex flex-col">
-                    <p></p>
-                    <p className='text-lg'>Product: Renovation of {selectedItem.name}</p>
-                    <p className='text-lg'>Payment Method: {choosenPaymentMethod}</p>
-                    <p className='text-lg'>{infoType}: {askedInfo}</p>
-                    <p className='text text-xl font-bold mt-4'>Price: {selectedItem.price}</p>
-                </div>
-
-                <a className="btn btn-neutral mt-4 w-full" href='/app/loading'>
-                    Confirm
-                </a>
-            </div>
-
-
         </div>
     )
 }

@@ -128,7 +128,7 @@ export default function ProfilePage() {
                 </div>
             </div>
             <button className="btn btn-neutral rounded-xl mt-2 w-full" onClick={showMyPassModal}><i
-                className="fa-solid fa-ticket"></i>My Pass
+                className="fa-solid fa-ticket"></i>My Passes
             </button>
             <button className="btn btn-neutral rounded-xl mt-2 w-full" onClick={showCreatePassModal}><i
                 className="fa-solid fa-ticket"></i>Create Pass
