@@ -40,8 +40,8 @@ export default function JourneysPage() {
         e.preventDefault();
         const lineNumber = document.getElementById('lineInput').value;
         const line = lines.find((l) => l.number == lineNumber);
-        const startTime = "00:00:00";
-        const outbound = true;
+        const startTime = document.getElementById('timeInput').value;
+        const outbound = document.getElementById('outboundInput').value === 'true' ? 1 : 0;
 
         console.log(JSON.stringify({
             line: line,
@@ -173,9 +173,24 @@ export default function JourneysPage() {
                         <h3 className="font-bold text-lg mb-4">Add journey</h3>
                         <form className="flex flex-col gap-4">
                             <label className="input input-bordered flex items-center gap-2">
-                                Line
+                                Line ID
                                 <input id="lineInput" type="number" className="grow" placeholder="1" required/>
                             </label>
+
+                            <label className="input input-bordered flex items-center gap-2">
+                                Start time
+                                <input id="timeInput" type="time" className="grow" required/>
+                            </label>
+                            <div className="flex flex-row gap-8 items-center ml-8">
+                                Direction:
+                                <select id="outboundInput"
+                                        className="select select-bordered flex items-center gap-2 grow">
+
+                                    <option value="true">Ida</option>
+                                    <option value="false">Volta</option>
+                                </select>
+                            </div>
+
 
                             {/* Exception stops */}
                             <h3 className="font-bold text-lg">Exception stops</h3>
