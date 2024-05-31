@@ -220,7 +220,7 @@ export default function ProfilePage() {
                 </div>
             </div>
             <dialog id="RenewModal" className="modal">
-                <ModalRenew/>
+                    <ModalRenew/>
                 <form method="dialog" className="modal-backdrop">
                     <button>close</button>
                 </form>

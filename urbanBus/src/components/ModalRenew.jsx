@@ -12,7 +12,7 @@ export default function ModalRenew() {
         const token = localStorage.getItem('token');
         fetchTicketsData(token);
         fetchItemsData();
-    });
+    }, []);
 
     const fetchTicketsData = async (token) => {
         const response = await fetch(baseURL + '/api/v1/myTickets', {
@@ -25,8 +25,8 @@ export default function ModalRenew() {
 
         if (response.status === 200) {
             const data = await response.json();
-            console.log(data);
             setTickets(data);
+            console.log("tickets",data);
         }
         else {
             alert('Error fetching tickets data');
@@ -36,12 +36,8 @@ export default function ModalRenew() {
     const fetchItemsData = async () => {
         const response = await fetch(baseURL + '/api/v1/prices');
         const data = await response.json();
-        console.log(data);
         setItems(data);
-    }
-
-    const handleRenovation = (e) => {
-        setSelectedItem(items.find(item => item.name === e.target.value));
+        console.log("items",data);
     }
 
 
@@ -104,13 +100,8 @@ export default function ModalRenew() {
         // fetch ticket
         const token = localStorage.getItem('token');
         const item = document.getElementById('itemSelect').value;
-        const response = await fetch(baseURL + '/api/v1/ticket' + ticket.id + '/charge', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                item: item
-            },
-        });
+        const ticket = document.getElementById('ticketSelect').value;
+        const response = await fetch(baseURL + '/api/v1/ticket/' + ticket + '/charge?item=' + item);
 
         if (response.ok) {
             alert('Ticket bought successfully');
@@ -146,8 +137,7 @@ export default function ModalRenew() {
 
                     <div className='flex flex-row mb-8'>
                         <p className="text-md font-bold text-neutral basis-1/3 my-auto">Renovation:</p>
-                        <select className="select select-bordered text-base basis-2/3" id="itemSelect" onChange={handleRenovation}
-                                name="" id="">
+                        <select className="select select-bordered text-base basis-2/3" id="itemSelect">
                             {items.map((item, index) => {
                                 if (item.trips !== null) {
                                     return (
@@ -185,7 +175,7 @@ export default function ModalRenew() {
                         </div>
                     </div>*/}
 
-                    <button className="btn btn-neutral mt-4" onClick={handleRenovation}>Pay</button>
+                    <button className="btn btn-neutral mt-4" onClick={chargeTicket}>Pay</button>
                 </div>
             </div>
         </div>
