@@ -81,7 +81,7 @@ export default function StopsPage() {
                     </form>
 
                     <h3 className="font-bold text-lg">Add stop</h3>
-                    <p className="py-4">Fill the inputs blabla</p>
+                    <p className="py-4">Fill the inputs</p>
                     <form className="flex flex-col gap-4">
                         <label className="input input-bordered flex items-center gap-2">
                             Name
