@@ -31,6 +31,9 @@ export default function RegisterPage() {
 
         if (response.status === 201 || response.status === 200) {
             alert('Registered successfully');
+            // store the token in the local storage
+            const data = await response.json();
+            localStorage.setItem('token', data.token);
             window.location.href = '/app';
         } else {
             alert('Error registering');
@@ -82,7 +85,7 @@ export default function RegisterPage() {
                         <path
                             d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/>
                     </svg>
-                    <input id="name" type="text" className="grow" placeholder="username"/>
+                    <input id="name" type="text" className="grow" placeholder="username" autoComplete="off"/>
                 </label>
             </div>
             <div className="form-control w-full">
@@ -94,7 +97,7 @@ export default function RegisterPage() {
                         <path
                             d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z"/>
                     </svg>
-                    <input id="email" type="email" className="grow" placeholder="Email"/>
+                    <input id="email" type="email" className="grow" placeholder="Email" autoComplete="off"/>
                 </label>
             </div>
             <div className="form-control w-full">
@@ -104,7 +107,7 @@ export default function RegisterPage() {
                         <path
                             d="M0 96l576 0c0-35.3-28.7-64-64-64H64C28.7 32 0 60.7 0 96zm0 32V416c0 35.3 28.7 64 64 64H512c35.3 0 64-28.7 64-64V128H0zM64 405.3c0-29.5 23.9-53.3 53.3-53.3H234.7c29.5 0 53.3 23.9 53.3 53.3c0 5.9-4.8 10.7-10.7 10.7H74.7c-5.9 0-10.7-4.8-10.7-10.7zM176 192a64 64 0 1 1 0 128 64 64 0 1 1 0-128zm176 16c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16zm0 64c0-8.8 7.2-16 16-16H496c8.8 0 16 7.2 16 16s-7.2 16-16 16H368c-8.8 0-16-7.2-16-16z"/>
                     </svg>
-                    <input id="nif" type="text" className="grow" placeholder="NIF"/>
+                    <input id="nif" type="text" className="grow" placeholder="NIF" autoComplete="off"/>
                 </label>
             </div>
             <div className="form-control w-full">
@@ -114,7 +117,7 @@ export default function RegisterPage() {
                         <path fillRule="evenodd"
                               d="M14 6a4 4 0 0 1-4.899 3.899l-1.955 1.955a.5.5 0 0 1-.353.146H5v1.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2.293a.5.5 0 0 1 .146-.353l3.955-3.955A4 4 0 1 1 14 6Zm-4-2a.75.75 0 0 0 0 1.5.5.5 0 0 1 .5.5.75.75 0 0 0 1.5 0 2 2 0 0 0-2-2Z"/>
                     </svg>
-                    <input id="password" type="password" className="grow" placeholder="Password"/>
+                    <input id="password" type="password" className="grow" placeholder="Password" autoComplete="off"/>
                 </label>
             </div>
             <button className="btn btn-neutral w-full mt-4" onClick={handleRegister}>Register</button>
