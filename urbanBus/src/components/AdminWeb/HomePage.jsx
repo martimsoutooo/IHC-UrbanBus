@@ -7,7 +7,7 @@ export default function HomePage({setCurrentPage}) {
                 <p className="text-2xl">Choose any option</p>
             </div>
 
-            <div className="overflow-x-auto flex flex-wrap gap-12 justify-evenly pb-10 cardsContainer">
+            <div className="overflow-x-auto flex flex-wrap gap-x-24 gap-y-12 justify-evenly pb-10 mx-24 cardsContainer">
                 <button className="card card-bordered w-96 bg-base-100 shadow-xl"
                         onClick={() => setCurrentPage('Stops')}>
                     <div className="card-body flex flex-row gap-7">

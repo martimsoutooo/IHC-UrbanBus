@@ -10,10 +10,10 @@ export default function FullPage() {
         <div>
             <Nav setCurrentPage={setCurrentPage}/>
 
-            <div className="flex flex-row h-full pt-16 mr-6">
+            <div className="flex flex-row h-full pt-16 mr-16">
                 <SubPageLeft currentPage={currentPage} setCurrentPage={setCurrentPage}/>
 
-                <div className="mockup-phone min-w-fit h-fit">
+                <div className="mockup-phone min-w-fit h-fit ml-8">
                     <div className="camera"></div> 
                     <div className="display">
                         <div className="artboard artboard-demo phone-2">
