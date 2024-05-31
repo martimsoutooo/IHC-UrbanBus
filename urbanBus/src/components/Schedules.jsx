@@ -14,6 +14,7 @@ export default function Schedules() {
 	const [lastStopId, setLastStopId] = useState('');
 	const [isLastStopTheLastFocus, setIsLastStopTheLastFocus] = useState(false);
 	const [selectedLine, setSelectedLine] = useState('');
+	const [selectedLineId, setSelectedLineId] = useState('');
 
 	const [lines, setLines] = useState([
 	    {name: '', color: "bg-[#00b8a1]/70", number: 1},
@@ -175,7 +176,8 @@ export default function Schedules() {
 	}
 
 	const lineSelection = (line) => {
-		setSelectedLine(line);
+		setSelectedLine(line.name);
+		setSelectedLineId(line.number);
 		hideMenu2Transition(true);
 		hideStopInputs();
 		showLineBar();
@@ -206,7 +208,7 @@ export default function Schedules() {
             		</div>
 
 					<div id="resultList" className="flex1 overflow-auto hidden">
-						<StopListResult line={selectedLine} firstStop={startStopId} lastStop={lastStopId} />
+						<StopListResult line={selectedLineId} firstStop={startStopId} lastStop={lastStopId} />
 					</div>
 				</div>
 			</div>
