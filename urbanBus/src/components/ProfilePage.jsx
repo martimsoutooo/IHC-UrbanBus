@@ -28,10 +28,11 @@ export default function ProfilePage() {
 
         if (response.status === 200) {
             const data = await response.json();
-            console.log(data);
             setUserData(data);
 
             fetchTicketsData(token);
+        } else if (response.status === 401) {
+            window.location.href = '/app/login';
         }
         else {
             alert('Error fetching user data');
@@ -49,6 +50,7 @@ export default function ProfilePage() {
 
         if (response.status === 200) {
             const data = await response.json();
+            console.log('mytickets',data);
             setTickets(data);
         }
         else {
@@ -70,7 +72,6 @@ export default function ProfilePage() {
                 zone: document.getElementById("zone").value,
             })
         });
-        console.log(response.status);
 
         if (response.status === 201) {
             alert('Ticket created successfully');
@@ -158,7 +159,7 @@ export default function ProfilePage() {
                         <div key={index} className="collapse collapse-arrow bg-base-200 my-4">
                             <input type="radio" name="my-accordion-1"/>
                             <div className="collapse-title text-xl font-medium">
-                                {ticket.id} - {ticket.expiration === null ? 'Trips' : 'Subscription'} Z{ticket.zone}
+                                {ticket.id} - {ticket.type} Z{ticket.zone}
                             </div>
                             <div className="collapse-content">
                                 <div className="bg-neutral rounded-xl mt-4 w-full text-white">
@@ -176,7 +177,7 @@ export default function ProfilePage() {
                                         <div className="flex flex-col pr-4 basis-full justify-items-center">
                                             <h1 className="text-sm rounded-md bg-white font-bold text-neutral text-left w-11/12 mx-auto mt-6 pl-2">Name {userData.name}</h1>
                                             <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">ID {ticket.id}</h1>
-                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">{ticket.expiration === null ? 'Trips ' + ticket.trips : 'Val ' + ticket.expiration}</h1>
+                                            <h1 className="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">{ticket.type === 'trips' ? 'Trips ' + ticket.trips : 'Val ' + ticket.expiration}</h1>
                                         </div>
                                     </div>
                                 </div>

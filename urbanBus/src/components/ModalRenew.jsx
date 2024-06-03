@@ -43,9 +43,8 @@ export default function ModalRenew() {
         const ticketId = document.getElementById('ticketSelect').value;
         const ticket = tickets.find(ticket => ticket.id == ticketId);
 
-        const ticketType = (ticket.expiration === null && ticket.trips === null) || (ticket.expiration !== null && ticket.trips === null) ? 'Subscription' : 'Trips';
         // filter by type
-        let filtered = items.filter(item => item.trips === null || item.trips === ticket.trips);
+        let filtered = items.filter(item => item.type === ticket.type);
 
         // filter by zone
         filtered = filtered.filter(item => item.zone === ticket.zone);
@@ -60,6 +59,7 @@ export default function ModalRenew() {
 
         if (response.ok) {
             alert('Ticket bought successfully');
+            window.location.reload();
         } else {
             alert('Error buying ticket');
         }
@@ -84,7 +84,7 @@ export default function ModalRenew() {
                         <option disabled selected>Ticket ID - Type Zone</option>
                         {tickets.map((ticket, index) => (
                             <option key={index}
-                                    value={ticket.id}>{ticket.id} - {(ticket.expiration === null && ticket.trips === null) || (ticket.expiration !== null && ticket.trips === null) ? 'Subscription' : 'Trips'} Z{ticket.zone}</option>
+                                    value={ticket.id}>{ticket.id} - {ticket.type} [Z{ticket.zone}]</option>
                         ))}
                     </select>
 
