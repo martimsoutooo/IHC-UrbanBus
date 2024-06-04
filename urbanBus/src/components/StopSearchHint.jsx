@@ -37,7 +37,7 @@ export default function StopSearchHint(props) {
 	return (
 		<ul className="menu w-full p-0 [&_li>*]:rounded-none">
 		{(stops).map((stop) => {
-			if (stop.name.toLowerCase().includes(searchTerm.toLowerCase())) {
+			if (typeof searchTerm === 'string' && stop.name.toLowerCase().includes(searchTerm.toLowerCase())) {
 				return (
 					<div key={stop.id}>
 						<li onClick={() => {handleClick(stop)}} onMouseDown={() => {handleFocus(stop)}}>
@@ -45,9 +45,9 @@ export default function StopSearchHint(props) {
 						</li>
 						<div className="divider h-0.5 my-0"></div>
 					</div>
-					);
-				}
-			})}
+				);
+			}
+		})}
 		</ul>
 		)
 }

@@ -26,7 +26,10 @@ export default function JourneyCard(props) {
 						{line.name}
 					</div>
 					<div className="ml-4">
-						<p className="text-lg font-semibold text-gray-800">{startTime.slice(0,5)} - {endTime.slice(0,5)}  {delay && <span className="badge badge-default text-xs">+{delay} min</span>}</p>
+						<p className="text-lg font-semibold text-gray-800">
+							{startTime.slice(0,5)} - {endTime.slice(0,5)}
+							{delay > 0 && <span className="badge badge-default text-xs ml-4">+{delay} min</span>}
+						</p>
 						<p className="text-xs text-gray-600">{departure}</p>
 						<p className="text-xs text-gray-600">{destination}</p>
 					</div>
