@@ -1,44 +1,50 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { _stops } from './consts/stops.js';
+import {baseURL} from "./consts/config.js";
 
 export default function ClosestsCard(props) {
     const defaultLatitude = 40.633039;
     const defaultLongitude = -8.659193;
 
+    const [stops, setStops] = useState([]);
     const [closestStops, setClosestStops] = useState([]);
 
-    useEffect(() => {
-        
-        const calculateClosestStops = (latitude, longitude) => {
-            console.log('Calculating distances from:', latitude, longitude);
-            
-            // Calculate the distance between the user's location and each stop
-            let stops = _stops.map((stop) => {
-                const distance = distanceInKmBetweenEarthCoordinates(latitude, longitude, stop.latitude, stop.longitude);
-                return { ...stop, distance };
-            });
-    
-            // Sort the stops by distance
-            stops.sort((a, b) => a.distance - b.distance);
-    
-            // Get the 3 closest stops
-            setClosestStops(stops.slice(0, 5));
-        };
+    const fetchData = async () => {
+        const response = await fetch(baseURL + '/api/v1/stops');
+        const data = await response.json();
+        setStops(data);
 
-        // Get the user's current location
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude, longitude } = position.coords;
-                calculateClosestStops(latitude, longitude);
-            },
-            () => {
-                // If geolocation fails, use the default latitude and longitude
-                calculateClosestStops(defaultLatitude, defaultLongitude);
-            }
-        );
+        // If the user's browser doesn't support geolocation, use the default latitude and longitude
+        if (navigator.geolocation) {
+            // Otherwise, get the user's location
+            navigator.geolocation.getCurrentPosition((position) => {
+                calculateClosestStops(data, position.coords.latitude, position.coords.longitude);
+                return;
+            });
+        }
+        calculateClosestStops(data, defaultLatitude, defaultLongitude);
+    }
+
+    useEffect(() => {
+        fetchData().then(r => console.log('Closest', closestStops));
     }, [defaultLatitude, defaultLongitude]);
 
+    const calculateClosestStops = (stopslist ,latitude, longitude) => {
+        console.log('Calculating distances from:', latitude, longitude);
+        console.log('Stops:', stopslist);
+
+        // Calculate the distance between the user's location and each stop
+        let stops = stopslist.map((stop) => {
+            const distance = distanceInKmBetweenEarthCoordinates(latitude, longitude, stop.latitude, stop.longitude);
+            return { ...stop, distance };
+        });
+
+        // Sort the stops by distance
+        stops.sort((a, b) => a.distance - b.distance);
+
+        // Get the 3 closest stops
+        setClosestStops(stops.slice(0, 5));
+    };
 
     function degreesToRadians(degrees) {
         return degrees * Math.PI / 180;

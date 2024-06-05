@@ -39,12 +39,11 @@ export default function JourneysPage() {
     const addJourney = async (e) => {
         e.preventDefault();
         const lineNumber = document.getElementById('lineInput').value;
-        const line = lines.find((l) => l.number == lineNumber);
         const startTime = document.getElementById('timeInput').value;
         const outbound = document.getElementById('outboundInput').value === 'true' ? 1 : 0;
 
-        console.log(JSON.stringify({
-            line: line,
+        console.log('request',JSON.stringify({
+            line: lineNumber,
             exceptions: exceptionStops,
             startTime: startTime,
             outbound: outbound,
@@ -56,7 +55,7 @@ export default function JourneysPage() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                line: line,
+                line: lineNumber,
                 exceptions: exceptionStops,
                 startTime: startTime,
                 outbound: outbound,
