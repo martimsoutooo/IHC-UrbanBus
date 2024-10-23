@@ -1,0 +1,17 @@
+---
+import LayoutMobile from "../../layouts/LayoutMobile.astro";
+---
+
+<LayoutMobile>
+    <div class="flex flex-col mt-36">
+        <span class="loading loading-spinner w-32 h-32 mx-auto"></span>
+        <p class="text-lg text-center mt-2">Waiting for payment</p>
+    </div>
+    
+    <script>
+        setTimeout(() => {
+        window.location.href = '/app/confirmaPasse';
+        }, 4000); 
+    </script>
+</LayoutMobile>
+

@@ -1,0 +1,20 @@
+---
+import NavMobile from "../components/NavMobile.astro"
+import Layout from "./Layout.astro"
+
+---
+
+<Layout title="Home">
+    <div class="fixed w-full">
+        <div class="w-32 mx-auto mt-2">
+            <h1 class="btn btn-ghost text-xl mx-auto">urbanBus.</h1>
+        </div>
+    </div>
+
+    <div class="w-full h-svh px-6 pt-16 pb-20">
+        <slot />
+    </div>
+
+    <NavMobile/>
+</Layout>
+

@@ -1,0 +1,24 @@
+---
+import NavMobileItem from "./NavMobileItem.astro";
+const currentUrl = new URL(Astro.request.url, import.meta.env.SITE);
+const currentPath = currentUrl.pathname;
+---
+
+<div class="btm-nav bg-neutral rounded-2xl mb-3">
+    <NavMobileItem icon="fas fa-home" href="/app/" active={currentPath === '/app/'}/>
+    <NavMobileItem icon="fas fa-route" href="/app/schedules" active={currentPath === '/app/schedules'}/>
+    <NavMobileItem icon="fas fa-map" href="/app/map" active={currentPath === '/app/map'}/>
+    <NavMobileItem icon="fas fa-user" href="/app/profile" active={currentPath === '/app/profile'}/>
+</div>
+
+<style>
+    .btm-nav {
+        position: fixed;
+        left: 25px;
+        width: calc(100% - 50px);
+    }
+</style>
+
+
+
+

@@ -1,4 +1,7 @@
 ---
+import { pwaInfo } from 'virtual:pwa-info'
+import ReloadPrompt from '../components/ReloadPrompt.astro';
+
 interface Props {
 	title: string;
 }
@@ -12,10 +15,14 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+		<link rel="icon" type="image/svg+xml" href="/favicon_bus.svg" />
+		<script src="https://kit.fontawesome.com/b61194ae5c.js" crossorigin="anonymous"></script>
 		<meta name="generator" content={Astro.generator} />
+		<link rel="stylesheet" href="/node_modules/leaflet/dist/leaflet.css">
+		<meta name="generator" content={Astro.generator}/>
 		<title>{title}</title>
+		<script src="../scripts/pwa.js"></script>
+		{ pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} /> || <script>console.log('No PWA info found')</script> }
 	</head>
 	<body>
 		<slot />
@@ -31,7 +38,7 @@ const { title } = Astro.props;
 			rgb(var(--accent)),
 			rgb(var(--accent-light)) 30%,
 			white 60%
-		);
+	   	);
 	}
 	html {
 		font-family: system-ui, sans-serif;
@@ -40,7 +47,7 @@ const { title } = Astro.props;
 	}
 	code {
 		font-family:
-			Menlo,
+	   		Menlo,
 			Monaco,
 			Lucida Console,
 			Liberation Mono,
@@ -48,5 +55,5 @@ const { title } = Astro.props;
 			Bitstream Vera Sans Mono,
 			Courier New,
 			monospace;
-	}
+	   }
 </style>

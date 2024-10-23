@@ -1,0 +1,77 @@
+---
+import LayoutMobile from '../../layouts/LayoutMobile.astro';
+import ModalContent from '../../components/ModalContent';
+---
+
+<LayoutMobile title="Profile">
+	
+	<div class="flex mt-8 mb-6 rounded-xl bg-neutral">
+		<div class="flex ml-6">
+			<div class="avatar placeholder my-auto">
+				<div class="bg-gray-400 text-neutral-content rounded-full w-20 h-20">
+					<span class="text-3xl">JD</span>
+				</div>
+			</div>
+			<div>
+				<div class="my-7">
+					<h1 class="text-sm font-bold ml-6 text-white">John Doe</h1>
+					<h1 class="text-sm font-bold ml-6 text-white">johndoe@gmail.com</h1>
+					<h1 class="text-sm font-bold ml-6 text-gray-500">Client</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<button class="btn btn-neutral rounded-xl mt-2 w-full" onclick="my_modal_3.showModal()"><i class="fa-solid fa-ticket"></i>My Pass</button>
+	<dialog id="my_modal_3" class="modal">
+		<div class="modal-box">
+			<form method="dialog">
+				<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+			</form>
+			<div class="bg-neutral h-52 rounded-xl mt-4 w-full text-white">
+				<div class="w-full h-full mx-2 my-2">
+					<div class="mt-4 flex flex-row">
+						<div class="btn btn-ghost text-xl justify-start mt-8 ml-4 basis-1/2">
+							urbanBus.
+						</div>
+						<div class="avatar placeholder justify-end basis-1/2 mr-10 mt-6">
+							<div class="bg-gray-400 text-neutral-content rounded-full w-16 h-16">
+								<span class="text-3xl">JD</span>
+							</div>
+						</div>
+					</div>
+					<div class="flex flex-col pr-4 basis-full justify-items-center">
+						<h1 class="text-sm rounded-md bg-white font-bold text-neutral text-left w-11/12 mx-auto mt-6 pl-2">John Marshall Saint Doe</h1>
+						<h1 class="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">41249</h1>
+						<h1 class="text-sm rounded-md bg-white font-bold text-neutral mt-2 text-left mx-auto w-11/12 pl-2">val 30/04</h1>
+					</div>
+				</div>
+			</div>
+			<div class="collapse bg-base-200 mt-2">
+				<input type="checkbox" /> 
+				<div class="collapse-title text-md px-1 text-neutral font-bold text-center">
+				  	Show QR
+				</div>
+				<div class="collapse-content"> 
+					<img src="../public/qr.svg" class="h-36 w-36 mx-auto mt-4">
+				</div>
+			</div>
+		</div>
+	</dialog>
+
+	<div class="btn btn-neutral flex h-12 rounded-xl mt-2 " onclick="my_modal_4.showModal()">
+		<div class="mx-auto flex">
+			<i class="fa-solid fa-credit-card text-white my-auto"></i>
+			<h1 class="text-md font-bold text-white ml-2 my-auto">Renew Pass</h1>
+		</div>
+	</div>
+	<dialog id="my_modal_4" class="modal">
+		<ModalContent client:load />
+	</dialog>
+	
+	<div class="btn btn-neutral flex h-12 rounded-xl mt-2">
+		<div class="mx-auto flex">
+			<i class="fa-solid fa-arrow-right-from-bracket text-white my-auto"></i>
+			<h1 class="text-md font-bold text-white ml-2 my-auto">Log out</h1>
+		</div>
+	</div>
+</LayoutMobile>
